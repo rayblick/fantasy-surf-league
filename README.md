@@ -531,5 +531,7 @@ def championshiptour(request, eventid):
 
 ### Build User Interface
 
+![Screen shot](fantasy/dashboard/static/img/screenshot.png "Screen shot")
+
 
 ### Deployment
