@@ -623,8 +623,23 @@ A "list" or in many of my cases a "list of lists" was a common method that I use
 def championshiptour(request, eventid):
     # Processing...
 
+    # place holder for results
+    mostpickedsurfer = []
+
+    # count each surfer in picks           
+    for s in list(picks_surfers):
+        mps = [s, (list(surferlist).count(s)/numselections)*100]
+        mostpickedsurfer.append(mps)
+
+    # sort function
+    def SortByMaxPoints(elem):
+      return elem[1]
+
+    # sort
+    mps = sorted(mostpickedsurfer, key=SortByMaxPoints, reverse=True)
+
     context = {# Other data...
-               'eventid':eventid }
+               'mps': mps }
 
     # render page
     return render(request, 'dashboard/index.html', context)
