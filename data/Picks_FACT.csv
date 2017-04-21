@@ -1,0 +1,168 @@
+1,1,2,1,John John Florence
+2,1,2,1,Owen Wright
+3,1,2,1,Julian Wilson
+4,1,2,1,Mick Fanning
+5,1,2,1,Jordy Smith
+6,1,2,1,Kolohe Andino
+7,1,2,1,Leonado Fioravanti
+8,1,2,1,Josh Kerr
+9,2,2,1,John John Florence
+10,2,2,1,Gabriel Medina
+11,2,2,1,Jordy Smith
+12,2,2,1,Mick Fanning
+13,2,2,1,Julian Wilson
+14,2,2,1,Adriano de Souza
+15,2,2,1,Filipe Toledo
+16,2,2,1,Josh Kerr
+17,3,2,1,John John Florence
+18,3,2,1,Owen Wright
+19,3,2,1,Jadson Andre
+20,3,2,1,Michel Bourez
+21,3,2,1,Adriano de Souza
+22,3,2,1,Mick Fanning
+23,3,2,1,Josh Kerr
+24,3,2,1,Filipe Toledo
+25,4,2,1,John John Florence
+26,4,2,1,Owen Wright
+27,4,2,1,Jordy Smith
+28,4,2,1,Kolohe Andino
+29,4,2,1,Mick Fanning
+30,4,2,1,Adriano de Souza
+31,4,2,1,Adrian Buchan
+32,4,2,1,Filipe Toledo
+33,5,2,1,John John Florence
+34,5,2,1,Gabriel Medina
+35,5,2,1,Jordy Smith
+36,5,2,1,Mick Fanning
+37,5,2,1,Julian Wilson
+38,5,2,1,Adriano de Souza
+39,5,2,1,Bede Durbidge
+40,5,2,1,Filipe Toledo
+41,6,2,1,John John Florence
+42,6,2,1,Gabriel Medina
+43,6,2,1,Mick Fanning
+44,6,2,1,Jordy Smith
+45,6,2,1,Adriano de Souza
+46,6,2,1,Julian Wilson
+47,6,2,1,Filipe Toledo
+48,6,2,1,Josh Kerr
+49,7,2,1,Matt Wilkinson
+50,7,2,1,Gabriel Medina
+51,7,2,1,Stuart Kennedy
+52,7,2,1,Julian Wilson
+53,7,2,1,Jordy Smith
+54,7,2,1,Adriano de Souza
+55,7,2,1,Ethan Ewing
+56,7,2,1,Jack Freestone
+57,1,1,1,John John Florence
+58,1,1,1,Julian Wilson
+59,1,1,1,Filipe Toledo
+60,1,1,1,Joel Parkinson
+61,1,1,1,Mick Fanning
+62,1,1,1,Sebastian Zietz
+63,1,1,1,Bede Durbidge
+64,1,1,1,Jack Freestone
+65,2,1,1,Jordy Smith
+66,2,1,1,John John Florence
+67,2,1,1,Filipe Toledo
+68,2,1,1,Mick Fanning
+69,2,1,1,Owen Wright
+70,2,1,1,Joel Parkinson
+71,2,1,1,Leonado Fioravanti
+72,2,1,1,Bede Durbidge
+73,3,1,1,Gabriel Medina
+74,3,1,1,Kelly Slater
+75,3,1,1,Filipe Toledo
+76,3,1,1,Adriano de Souza
+77,3,1,1,Mick Fanning
+78,3,1,1,Josh Kerr
+79,3,1,1,Leonado Fioravanti
+80,3,1,1,Jeremy Flores
+81,4,1,1,John John Florence
+82,4,1,1,Kolohe Andino
+83,4,1,1,Joel Parkinson
+84,4,1,1,Filipe Toledo
+85,4,1,1,Josh Kerr
+86,4,1,1,Mick Fanning
+87,4,1,1,Leonado Fioravanti
+88,4,1,1,Mikey Wright
+89,5,1,1,John John Florence
+90,5,1,1,Julian Wilson
+91,5,1,1,Mick Fanning
+92,5,1,1,Joel Parkinson
+93,5,1,1,Adriano de Souza
+94,5,1,1,Sebastian Zietz
+95,5,1,1,Bede Durbidge
+96,5,1,1,Jadson Andre
+97,6,1,1,John John Florence
+98,6,1,1,Julian Wilson
+99,6,1,1,Filipe Toledo
+100,6,1,1,Mick Fanning
+101,6,1,1,Joel Parkinson
+102,6,1,1,Adriano de Souza
+103,6,1,1,Ethan Ewing
+104,6,1,1,Jack Freestone
+105,7,1,1,Matt Wilkinson
+106,7,1,1,Jordy Smith
+107,7,1,1,Joel Parkinson
+108,7,1,1,Filipe Toledo
+109,7,1,1,Owen Wright
+110,7,1,1,Josh Kerr
+111,7,1,1,Mikey Wright
+112,7,1,1,Ethan Ewing
+113,1,3,1,Jordy Smith
+114,1,3,1,John John Florence
+115,1,3,1,Filipe Toledo
+116,1,3,1,Julian Wilson
+117,1,3,1,Mick Fanning
+118,1,3,1,Kelly Slater
+119,1,3,1,Nat Young
+120,1,3,1,Wiggolly Dantas
+121,2,3,1,John John Florence
+122,2,3,1,Jordy Smith
+123,2,3,1,Kelly Slater
+124,2,3,1,Mick Fanning
+125,2,3,1,Joel Parkinson
+126,2,3,1,Julian Wilson
+127,2,3,1,Nat Young
+128,2,3,1,Ezekiel Lau
+129,3,3,1,John John Florence
+130,3,3,1,Owen Wright
+131,3,3,1,Kelly Slater
+132,3,3,1,Julian Wilson
+133,3,3,1,Mick Fanning
+134,3,3,1,Filipe Toledo
+135,3,3,1,Ethan Ewing
+136,3,3,1,Leonado Fioravanti
+137,4,3,1,John John Florence
+138,4,3,1,Owen Wright
+139,4,3,1,Joel Parkinson
+140,4,3,1,Mick Fanning
+141,4,3,1,Kelly Slater
+142,4,3,1,Connor O'Leary
+143,4,3,1,Nat Young
+144,4,3,1,Jadson Andre
+145,5,3,1,John John Florence
+146,5,3,1,Jordy Smith
+147,5,3,1,Julian Wilson
+148,5,3,1,Mick Fanning
+149,5,3,1,Sebastian Zietz
+150,5,3,1,Kanoa Igarashi
+151,5,3,1,Nat Young
+152,5,3,1,Bede Durbidge
+153,6,3,1,John John Florence
+154,6,3,1,Jordy Smith
+155,6,3,1,Mick Fanning
+156,6,3,1,Filipe Toledo
+157,6,3,1,Kelly Slater
+158,6,3,1,Julian Wilson
+159,6,3,1,Bede Durbidge
+160,6,3,1,Ezekiel Lau
+161,7,3,1,John John Florence
+162,7,3,1,Jordy Smith
+163,7,3,1,Kelly Slater
+164,7,3,1,Jack Freestone
+165,7,3,1,Joel Parkinson
+166,7,3,1,Miguel Pupo
+167,7,3,1,Ethan Ewing
+168,7,3,1,Joan Duru

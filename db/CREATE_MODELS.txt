@@ -1,0 +1,4 @@
+# HELP
+# http://stackoverflow.com/questions/25697337/using-existing-database-in-django
+# ./manage.py inspectdb --database=fantasydb > dashboard/models.py
+
