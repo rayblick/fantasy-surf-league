@@ -6,7 +6,7 @@ The dashboard contains four main areas each requiring a different set of data. T
 Most of the information is reduced to a list or dictionary. However, I have transformed the data in two ways. First, the leaderboard is reduced to the required data before it reaches the Django app, and second, the surfer selection and results area is entirely processed in views.py. The data processing has occurred this way because I already had a vision of what the leaderboard should look like, but the selection area required a little prototyping in building the html layout before I knew what it should look like. Unless I get complaints about performance issues then this method of processing these data will stay as it is.   
 
 
-![Screen shot](fantasy/dashboard/static/img/screenshot.png "Screen shot")
+.. image:: ../../fantasy/dashboard/static/img/screenshot.png
 
 I used a variety of ways to pass data across to the webpage. I will cover them here as a reference for later. 
 

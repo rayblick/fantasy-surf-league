@@ -211,7 +211,7 @@
 <h1>User Interface<a class="headerlink" href="#user-interface" title="Permalink to this headline">¶</a></h1>
 <p>The dashboard contains four main areas each requiring a different set of data. The four areas (clockwise from top left) include 1) event selection buttons, 2) leaderboard, 3) badges, and 4) surfer selections and results. All of the required information to generate these areas of the dashboard are passed from the &#8220;context&#8221; dictionary in views.py.</p>
 <p>Most of the information is reduced to a list or dictionary. However, I have transformed the data in two ways. First, the leaderboard is reduced to the required data before it reaches the Django app, and second, the surfer selection and results area is entirely processed in views.py. The data processing has occurred this way because I already had a vision of what the leaderboard should look like, but the selection area required a little prototyping in building the html layout before I knew what it should look like. Unless I get complaints about performance issues then this method of processing these data will stay as it is.</p>
-<p>![Screen shot](fantasy/dashboard/static/img/screenshot.png &#8220;Screen shot&#8221;)</p>
+<img alt="../_images/screenshot.png" src="../_images/screenshot.png" />
 <p>I used a variety of ways to pass data across to the webpage. I will cover them here as a reference for later.</p>
 <div class="section" id="queryset">
 <h2>QUERYSET<a class="headerlink" href="#queryset" title="Permalink to this headline">¶</a></h2>
