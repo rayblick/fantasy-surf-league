@@ -1,5 +1,7 @@
 # Surf Fantasy Dashboard
  
+Alternative documentation format found at docs/_build/html/README.html.
+
 ## Aim
 The world surf league runs a fantasy sports competition that myself and friends play (players). The existing information available on web and mobile apps are limited. Therefore, the aim of this project is to create a dashboard to more effectively track the changes that occur between events. 
 
@@ -528,18 +530,6 @@ def championshiptour(request, eventid):
     return render(request, 'dashboard/index.html', context)
 ```
 
-### Updating Requirements
-
-This project has a manual data entry component. It takes about 30 mins to enter the new records (Fantasy team of 7 players picking 8 surfers). It is important that the names of the surfers match in each csv file. I decided against using an ID key for surfer names because it took longer from continuously double checking my entries, and the convienience of tab completion helped to spot errors immediately. 
-
-+ Add new data to the csv files (.data/)
-+ Run the sqlite fantasy DB ($> sqlite fantasydb) 
-+ Rerun the entire sql script (.db/DB_CREATOR.txt) 
-+ Copy new DB across to the Django project 
-+ Test that the scores match/check typos etc  
-+ Update development log if changes are made 
-
-
 ### User Interface
 
 The dashboard contains four main areas each requiring a different set of data. The four areas (clockwise from top left) include 1) event selection buttons, 2) leaderboard, 3) badges, and 4) surfer selections and results. All of the required information to generate these areas of the dashboard are passed from the "context" dictionary in views.py. 
@@ -700,6 +690,16 @@ def championshiptour(request, eventid):
 
 ```
 
+### Updating Requirements
+
+This project has a manual data entry component. It takes about 30 mins to enter the new records (Fantasy team of 7 players picking 8 surfers). It is important that the names of the surfers match in each csv file. I decided against using an ID key for surfer names because it took longer from continuously double checking my entries, and the convienience of tab completion helped to spot errors immediately. 
+
++ Add new data to the csv files (.data/)
++ Run the sqlite fantasy DB ($> sqlite fantasydb) 
++ Rerun the entire sql script (.db/DB_CREATOR.txt) 
++ Copy new DB across to the Django project 
++ Test that the scores match/check typos etc  
++ Update development log if changes are made 
 
 
 

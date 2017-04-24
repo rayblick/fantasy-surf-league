@@ -1,0 +1,28 @@
+.. Fantasy Surf League documentation master file, created by
+   sphinx-quickstart on Mon Apr 24 19:33:02 2017.
+   You can adapt this file completely to your liking, but it should at least
+   contain the root `toctree` directive.
+
+Welcome to Fantasy Surf League's documentation!
+===============================================
+
+.. toctree::
+   :maxdepth: 2
+   :caption: Contents:
+
+
+   pages/intro
+   pages/comp
+   pages/layout
+   pages/data
+   pages/db
+   pages/django
+   pages/interface
+   pages/updates
+
+Indices and tables
+==================
+
+* :ref:`genindex`
+* :ref:`modindex`
+* :ref:`search`

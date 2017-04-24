@@ -1,0 +1,547 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Database &mdash; Fantasy Surf League 3.4 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
+    <link rel="top" title="Fantasy Surf League 3.4 documentation" href="../index.html"/>
+        <link rel="next" title="Django App" href="django.html"/>
+        <link rel="prev" title="Data" href="data.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../README.html" class="icon icon-home"> Fantasy Surf League
+          
+
+          
+          </a>
+
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="intro.html">Introduction</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="intro.html#aim">Aim</a></li>
+<li class="toctree-l2"><a class="reference internal" href="intro.html#scope">Scope</a></li>
+<li class="toctree-l2"><a class="reference internal" href="intro.html#out-of-scope">Out of Scope</a></li>
+<li class="toctree-l2"><a class="reference internal" href="intro.html#assumptions">Assumptions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="intro.html#time">Time</a></li>
+<li class="toctree-l2"><a class="reference internal" href="intro.html#contributors">Contributors</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="comp.html">WSL Surf Fantasy Competition</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="comp.html#summary">Summary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="comp.html#data-considerations">Data Considerations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="comp.html#naming-conventions">Naming conventions</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="layout.html">Project layout</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="layout.html#tree">Tree</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="data.html">Data</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="data.html#files">Files</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Database</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#create-db">Create DB</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#import-data">Import Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#create-fantasy-picks-table-django-model">Create Fantasy Picks Table (Django Model)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#creating-view-to-handle-bonus-rounds">Creating &#8220;VIEW&#8221; to handle bonus rounds</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#create-fantasy-points-table">Create Fantasy Points Table</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#create-leaderboard">Create Leaderboard</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#add-running-totals-to-the-leaderboard">Add Running Totals to the Leaderboard</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#add-event-rank-and-tour-rank-to-the-leaderboard">Add Event Rank and Tour Rank to the Leaderboard</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#add-change-in-rank-to-the-leaderboard">Add Change in Rank to the Leaderboard</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#add-required-points-to-the-leaderboard">Add Required Points to the Leaderboard</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#drop-tables-not-needed-in-the-django-app">Drop tables not needed in the django app</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#tables-remaining-django-models">Tables Remaining (Django Models)</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="django.html">Django App</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="django.html#requirements">Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="django.html#app-design">App Design</a></li>
+<li class="toctree-l2"><a class="reference internal" href="django.html#create-django-project-and-app">Create Django Project and App</a></li>
+<li class="toctree-l2"><a class="reference internal" href="django.html#generate-django-models-from-sqlite-database">Generate Django Models from SQLite Database</a></li>
+<li class="toctree-l2"><a class="reference internal" href="django.html#database-setup-fantasy-settings-py">Database setup (fantasy/settings.py)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="django.html#urls-py-dashboard-app">urls.py (dashboard app)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="django.html#create-user">Create User</a></li>
+<li class="toctree-l2"><a class="reference internal" href="django.html#migrate-changes">Migrate Changes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="django.html#added-project-directories">Added Project Directories</a></li>
+<li class="toctree-l2"><a class="reference internal" href="django.html#modifying-views-py-to-access-querysets">Modifying views.py to Access Querysets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="django.html#views-py">views.py</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="interface.html">User Interface</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="interface.html#queryset">QUERYSET</a></li>
+<li class="toctree-l2"><a class="reference internal" href="interface.html#list">LIST</a></li>
+<li class="toctree-l2"><a class="reference internal" href="interface.html#value">VALUE</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="updates.html">Updating</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../README.html">Fantasy Surf League</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../README.html">Docs</a> &raquo;</li>
+        
+      <li>Database</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/pages/db.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="database">
+<h1>Database<a class="headerlink" href="#database" title="Permalink to this headline">¶</a></h1>
+<p>The steps in the following code blocks are used to create a database that holds the summary tables required in the Django application (These become Django &#8220;models&#8221;). The final sqlite database created here is copied to the appropriate location in the django application after creation. The full listing is available in &#8220;db/DB_CREATOR.txt&#8221;. You can copy and paste this listing into an sqlite shell.</p>
+<div class="section" id="create-db">
+<h2>Create DB<a class="headerlink" href="#create-db" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>sqlite3 fantasydb
+</pre></div>
+</div>
+</div>
+<div class="section" id="import-data">
+<h2>Import Data<a class="headerlink" href="#import-data" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-sql"><div class="highlight"><pre><span></span><span class="cm">/* SQLite shell */</span>
+<span class="cm">/* Import csv files to SQLite3 */</span>
+<span class="p">.</span><span class="k">mode</span> <span class="n">csv</span>
+
+    <span class="cm">/* Events_DIM */</span>
+    <span class="k">DROP</span> <span class="k">TABLE</span> <span class="k">IF</span> <span class="k">EXISTS</span> <span class="n">Events_DIM</span><span class="p">;</span>
+    <span class="k">CREATE</span> <span class="k">TABLE</span> <span class="n">Events_DIM</span><span class="p">(</span><span class="n">event_id</span> <span class="nb">INTEGER</span> <span class="k">PRIMARY</span> <span class="k">KEY</span><span class="p">,</span>
+                                <span class="n">event_name</span> <span class="nb">TEXT</span><span class="p">,</span>
+                                <span class="n">event_location</span> <span class="nb">TEXT</span><span class="p">,</span>
+                                <span class="n">event_country</span> <span class="nb">TEXT</span><span class="p">);</span>
+    <span class="p">.</span><span class="n">import</span> <span class="p">..</span><span class="o">/</span><span class="k">data</span><span class="o">/</span><span class="n">Events_DIM</span><span class="p">.</span><span class="n">csv</span> <span class="n">Events_DIM</span>
+
+    <span class="cm">/* player_DIM */</span>
+    <span class="k">DROP</span> <span class="k">TABLE</span> <span class="k">IF</span> <span class="k">EXISTS</span> <span class="n">Player_DIM</span><span class="p">;</span>
+    <span class="k">CREATE</span> <span class="k">TABLE</span> <span class="n">Player_DIM</span><span class="p">(</span><span class="n">player_id</span> <span class="nb">INTEGER</span> <span class="k">PRIMARY</span> <span class="k">KEY</span><span class="p">,</span>
+                                <span class="n">player_name</span> <span class="nb">TEXT</span><span class="p">);</span>
+    <span class="p">.</span><span class="n">import</span> <span class="p">..</span><span class="o">/</span><span class="k">data</span><span class="o">/</span><span class="n">Player_DIM</span><span class="p">.</span><span class="n">csv</span> <span class="n">Player_DIM</span>
+
+    <span class="cm">/* Rounds_DIM */</span>
+    <span class="k">DROP</span> <span class="k">TABLE</span> <span class="k">IF</span> <span class="k">EXISTS</span> <span class="n">Rounds_DIM</span><span class="p">;</span>
+    <span class="k">CREATE</span> <span class="k">TABLE</span> <span class="n">Rounds_DIM</span><span class="p">(</span><span class="n">round_id</span> <span class="nb">INTEGER</span> <span class="k">PRIMARY</span> <span class="k">KEY</span><span class="p">,</span>
+                               <span class="n">round_name</span> <span class="nb">TEXT</span><span class="p">);</span>
+    <span class="p">.</span><span class="n">import</span> <span class="p">..</span><span class="o">/</span><span class="k">data</span><span class="o">/</span><span class="n">Rounds_DIM</span><span class="p">.</span><span class="n">csv</span> <span class="n">Rounds_DIM</span>
+
+    <span class="cm">/* Picks_FACT*/</span>
+    <span class="k">DROP</span> <span class="k">TABLE</span> <span class="k">IF</span> <span class="k">EXISTS</span> <span class="n">Picks_FACT</span><span class="p">;</span>
+    <span class="k">CREATE</span> <span class="k">TABLE</span> <span class="n">Picks_FACT</span><span class="p">(</span><span class="n">picks_id</span> <span class="nb">INTEGER</span> <span class="k">PRIMARY</span> <span class="k">KEY</span><span class="p">,</span>
+                                <span class="n">player_id</span> <span class="nb">INTEGER</span><span class="p">,</span>
+                                <span class="n">event_id</span> <span class="nb">INTEGER</span><span class="p">,</span>
+                                <span class="n">round_start_id</span> <span class="nb">INTEGER</span><span class="p">,</span>
+                                <span class="n">surfer_name</span> <span class="nb">TEXT</span><span class="p">);</span>
+    <span class="p">.</span><span class="n">import</span> <span class="p">..</span><span class="o">/</span><span class="k">data</span><span class="o">/</span><span class="n">Picks_FACT</span><span class="p">.</span><span class="n">csv</span> <span class="n">Picks_FACT</span>
+
+    <span class="cm">/* Events_FACT */</span>
+    <span class="k">DROP</span> <span class="k">TABLE</span> <span class="k">IF</span> <span class="k">EXISTS</span> <span class="n">Events_FACT</span><span class="p">;</span>
+    <span class="k">CREATE</span> <span class="k">TABLE</span> <span class="n">Events_FACT</span><span class="p">(</span><span class="n">id</span> <span class="nb">INTEGER</span> <span class="k">PRIMARY</span> <span class="k">KEY</span><span class="p">,</span>
+                            <span class="n">event_id</span> <span class="nb">INTEGER</span><span class="p">,</span>
+                            <span class="n">round_id</span> <span class="nb">INTEGER</span><span class="p">,</span>
+                            <span class="n">heat</span> <span class="nb">INTEGER</span><span class="p">,</span>
+                            <span class="n">surfer_name</span> <span class="nb">TEXT</span><span class="p">,</span>
+                            <span class="n">score1</span> <span class="nb">REAL</span><span class="p">,</span>
+                            <span class="n">score2</span> <span class="nb">REAL</span><span class="p">,</span>
+                            <span class="n">total</span> <span class="nb">REAL</span><span class="p">,</span>
+                            <span class="n">flag</span> <span class="nb">TEXT</span><span class="p">,</span>
+                            <span class="n">note</span> <span class="nb">TEXT</span><span class="p">);</span>
+    <span class="p">.</span><span class="n">import</span> <span class="p">..</span><span class="o">/</span><span class="k">data</span><span class="o">/</span><span class="n">Events_FACT</span><span class="p">.</span><span class="n">csv</span> <span class="n">Events_FACT</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="create-fantasy-picks-table-django-model">
+<h2>Create Fantasy Picks Table (Django Model)<a class="headerlink" href="#create-fantasy-picks-table-django-model" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-sql"><div class="highlight"><pre><span></span><span class="k">DROP</span> <span class="k">TABLE</span> <span class="k">IF</span> <span class="k">EXISTS</span> <span class="n">FantasyPicks</span><span class="p">;</span>
+<span class="k">CREATE</span> <span class="k">TABLE</span> <span class="n">FantasyPicks</span><span class="p">(</span><span class="n">id</span><span class="p">,</span> <span class="nb">INTEGER</span> <span class="k">PRIMARY</span> <span class="k">KEY</span><span class="p">,</span>
+                            <span class="n">player_name</span> <span class="nb">TEXT</span><span class="p">,</span>
+                            <span class="n">event_id</span> <span class="nb">INTEGER</span><span class="p">,</span>
+                            <span class="n">event_name</span> <span class="nb">TEXT</span><span class="p">,</span>
+                            <span class="n">round_start_id</span> <span class="nb">INTEGER</span><span class="p">,</span>
+                            <span class="n">surfer_name</span> <span class="nb">TEXT</span><span class="p">);</span>
+
+<span class="k">INSERT</span> <span class="k">INTO</span> <span class="n">FantasyPicks</span>
+        <span class="p">(</span><span class="n">id</span><span class="p">,</span> <span class="n">player_name</span><span class="p">,</span> <span class="n">event_id</span><span class="p">,</span> <span class="n">event_name</span><span class="p">,</span> <span class="n">round_start_id</span><span class="p">,</span> <span class="n">surfer_name</span><span class="p">)</span>
+        <span class="k">SELECT</span> <span class="n">picks_id</span><span class="p">,</span>
+           <span class="n">players</span><span class="p">.</span><span class="n">player_name</span><span class="p">,</span>
+           <span class="n">events</span><span class="p">.</span><span class="n">event_id</span><span class="p">,</span>
+           <span class="n">events</span><span class="p">.</span><span class="n">event_name</span> <span class="o">||</span> <span class="s1">&#39; - &#39;</span> <span class="o">||</span> <span class="n">events</span><span class="p">.</span><span class="n">event_location</span><span class="p">,</span>
+           <span class="n">picks</span><span class="p">.</span><span class="n">round_start_id</span><span class="p">,</span>
+           <span class="n">picks</span><span class="p">.</span><span class="n">surfer_name</span>
+        <span class="k">FROM</span> <span class="n">Picks_FACT</span> <span class="n">picks</span>
+        <span class="k">JOIN</span> <span class="n">Player_DIM</span> <span class="n">players</span>
+           <span class="k">ON</span> <span class="n">players</span><span class="p">.</span><span class="n">player_id</span> <span class="o">=</span> <span class="n">picks</span><span class="p">.</span><span class="n">player_id</span>
+        <span class="k">JOIN</span> <span class="n">Events_DIM</span> <span class="n">events</span>
+           <span class="k">ON</span> <span class="n">events</span><span class="p">.</span><span class="n">event_id</span> <span class="o">=</span> <span class="n">picks</span><span class="p">.</span><span class="n">event_id</span><span class="p">;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="creating-view-to-handle-bonus-rounds">
+<h2>Creating &#8220;VIEW&#8221; to handle bonus rounds<a class="headerlink" href="#creating-view-to-handle-bonus-rounds" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-sql"><div class="highlight"><pre><span></span><span class="k">DROP</span> <span class="k">VIEW</span> <span class="n">MaxBonusRound</span><span class="p">;</span>
+<span class="k">CREATE</span> <span class="k">VIEW</span> <span class="n">MaxBonusRound</span> <span class="k">as</span>
+<span class="k">SELECT</span> <span class="n">event_id</span><span class="p">,</span> <span class="n">round_id</span><span class="p">,</span> <span class="k">max</span><span class="p">(</span><span class="n">total</span><span class="p">)</span> <span class="k">as</span> <span class="n">high_score</span>
+<span class="k">FROM</span> <span class="n">Events_FACT</span>
+<span class="k">WHERE</span> <span class="n">round_id</span> <span class="k">IN</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+<span class="k">GROUP</span> <span class="k">BY</span> <span class="n">event_id</span><span class="p">,</span> <span class="n">round_id</span><span class="p">;</span>
+
+<span class="k">DROP</span> <span class="k">VIEW</span> <span class="n">SurferBonusRounds</span><span class="p">;</span>
+<span class="k">CREATE</span> <span class="k">VIEW</span> <span class="n">SurferBonusRounds</span> <span class="k">as</span>
+<span class="k">SELECT</span> <span class="n">sbr</span><span class="p">.</span><span class="n">event_id</span><span class="p">,</span>
+           <span class="n">sbr</span><span class="p">.</span><span class="n">bonusRound</span><span class="p">,</span>
+           <span class="n">sbr</span><span class="p">.</span><span class="n">bonusflag</span><span class="p">,</span>
+           <span class="n">sbr</span><span class="p">.</span><span class="n">surfer_name</span><span class="p">,</span>
+           <span class="n">mbr</span><span class="p">.</span><span class="n">high_score</span>
+<span class="k">FROM</span> <span class="p">(</span><span class="k">SELECT</span> <span class="n">event_id</span><span class="p">,</span>
+                 <span class="n">round_id</span><span class="p">,</span>
+                 <span class="p">(</span><span class="n">round_id</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span> <span class="k">as</span> <span class="n">bonusRound</span><span class="p">,</span>
+                 <span class="n">surfer_name</span><span class="p">,</span>
+                 <span class="s1">&#39;b&#39;</span> <span class="k">as</span> <span class="n">bonusflag</span><span class="p">,</span>
+                 <span class="k">max</span><span class="p">(</span><span class="n">total</span><span class="p">)</span>
+          <span class="k">FROM</span> <span class="n">Events_FACT</span>
+          <span class="k">WHERE</span> <span class="n">round_id</span> <span class="k">IN</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+          <span class="k">GROUP</span> <span class="k">BY</span> <span class="n">event_id</span><span class="p">,</span> <span class="n">round_id</span><span class="p">,</span> <span class="n">heat</span><span class="p">)</span> <span class="n">sbr</span>
+<span class="k">LEFT</span> <span class="k">JOIN</span> <span class="n">MaxBonusRound</span> <span class="n">mbr</span>
+<span class="k">ON</span> <span class="n">sbr</span><span class="p">.</span><span class="n">event_id</span><span class="o">=</span><span class="n">mbr</span><span class="p">.</span><span class="n">event_id</span>
+<span class="k">AND</span> <span class="n">sbr</span><span class="p">.</span><span class="n">bonusRound</span><span class="o">=</span><span class="n">mbr</span><span class="p">.</span><span class="n">round_id</span><span class="p">;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="create-fantasy-points-table">
+<h2>Create Fantasy Points Table<a class="headerlink" href="#create-fantasy-points-table" title="Permalink to this headline">¶</a></h2>
+<p>Appends bonus rounds to the points table</p>
+<div class="highlight-sql"><div class="highlight"><pre><span></span><span class="k">DROP</span> <span class="k">TABLE</span> <span class="k">IF</span> <span class="k">EXISTS</span> <span class="n">FantasyPointsTable</span><span class="p">;</span>
+<span class="k">CREATE</span> <span class="k">TABLE</span> <span class="n">FantasyPointsTable</span> <span class="p">(</span>
+                        <span class="n">id</span> <span class="nb">INTEGER</span> <span class="k">PRIMARY</span> <span class="k">KEY</span> <span class="n">AUTOINCREMENT</span><span class="p">,</span>
+                        <span class="n">event_id</span> <span class="nb">INTEGER</span><span class="p">,</span>
+                        <span class="n">round_id</span> <span class="nb">INTEGER</span><span class="p">,</span>
+                        <span class="n">bonusflag</span> <span class="nb">TEXT</span><span class="p">,</span>
+                        <span class="n">surfer_name</span> <span class="nb">TEXT</span><span class="p">,</span>
+                        <span class="n">total</span> <span class="nb">REAL</span><span class="p">);</span>
+
+<span class="k">INSERT</span> <span class="k">INTO</span> <span class="n">FantasyPointsTable</span>
+        <span class="p">(</span><span class="n">event_id</span><span class="p">,</span> <span class="n">round_id</span><span class="p">,</span> <span class="n">bonusflag</span><span class="p">,</span> <span class="n">surfer_name</span><span class="p">,</span> <span class="n">total</span><span class="p">)</span>
+        <span class="k">SELECT</span> <span class="n">event_id</span><span class="p">,</span> <span class="n">bonusRound</span><span class="p">,</span> <span class="n">bonusflag</span><span class="p">,</span> <span class="n">surfer_name</span><span class="p">,</span> <span class="n">high_score</span>
+        <span class="k">FROM</span> <span class="n">SurferBonusRounds</span><span class="p">;</span>
+
+<span class="k">INSERT</span> <span class="k">INTO</span> <span class="n">FantasyPointsTable</span>
+        <span class="p">(</span><span class="n">event_id</span><span class="p">,</span> <span class="n">round_id</span><span class="p">,</span> <span class="n">bonusflag</span><span class="p">,</span> <span class="n">surfer_name</span><span class="p">,</span> <span class="n">total</span><span class="p">)</span>
+        <span class="k">SELECT</span> <span class="n">event_id</span><span class="p">,</span> <span class="n">round_id</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">surfer_name</span><span class="p">,</span> <span class="n">total</span>
+        <span class="k">FROM</span> <span class="n">Events_FACT</span><span class="p">;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="create-leaderboard">
+<h2>Create Leaderboard<a class="headerlink" href="#create-leaderboard" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-sql"><div class="highlight"><pre><span></span><span class="k">DROP</span> <span class="k">TABLE</span> <span class="k">IF</span> <span class="k">EXISTS</span> <span class="n">FantasyPlayerScore</span><span class="p">;</span>
+<span class="k">CREATE</span> <span class="k">TABLE</span> <span class="n">FantasyPlayerScore</span> <span class="p">(</span>
+                        <span class="n">id</span> <span class="nb">INTEGER</span> <span class="k">PRIMARY</span> <span class="k">KEY</span> <span class="n">AUTOINCREMENT</span><span class="p">,</span>
+                        <span class="n">event_id</span> <span class="nb">INTEGER</span><span class="p">,</span>
+                        <span class="n">player_name</span> <span class="nb">TEXT</span><span class="p">,</span>
+                        <span class="n">player_points</span> <span class="nb">REAL</span><span class="p">);</span>
+
+<span class="cm">/* Note the join to picks fact and player dim */</span>
+<span class="cm">/* A key part of this sql statement is the round id join on</span>
+<span class="cm">round_start_id - this ensures that players dont get points for</span>
+<span class="cm">late picks */</span>
+
+<span class="k">INSERT</span> <span class="k">INTO</span> <span class="n">FantasyPlayerScore</span>
+         <span class="p">(</span><span class="n">event_id</span><span class="p">,</span> <span class="n">player_name</span><span class="p">,</span> <span class="n">player_points</span><span class="p">)</span>
+         <span class="k">SELECT</span> <span class="n">fpt</span><span class="p">.</span><span class="n">event_id</span><span class="p">,</span> <span class="n">pd</span><span class="p">.</span><span class="n">player_name</span><span class="p">,</span> <span class="k">sum</span><span class="p">(</span><span class="n">fpt</span><span class="p">.</span><span class="n">tot</span><span class="p">)</span>
+              <span class="k">FROM</span><span class="p">(</span>
+                   <span class="k">SELECT</span> <span class="n">event_id</span><span class="p">,</span> <span class="n">round_id</span><span class="p">,</span> <span class="n">surfer_name</span><span class="p">,</span> <span class="k">sum</span><span class="p">(</span><span class="n">total</span><span class="p">)</span> <span class="k">as</span> <span class="n">tot</span>
+                   <span class="k">FROM</span> <span class="n">FantasyPointsTable</span>
+                   <span class="k">GROUP</span> <span class="k">BY</span> <span class="n">event_id</span><span class="p">,</span> <span class="n">surfer_name</span><span class="p">)</span> <span class="n">fpt</span>
+         <span class="k">JOIN</span> <span class="n">Picks_FACT</span> <span class="n">pf</span>
+              <span class="k">ON</span> <span class="n">fpt</span><span class="p">.</span><span class="n">surfer_name</span> <span class="o">=</span> <span class="n">pf</span><span class="p">.</span><span class="n">surfer_name</span>
+              <span class="k">AND</span> <span class="n">fpt</span><span class="p">.</span><span class="n">event_id</span> <span class="o">=</span> <span class="n">pf</span><span class="p">.</span><span class="n">event_id</span>
+              <span class="k">AND</span> <span class="n">fpt</span><span class="p">.</span><span class="n">round_id</span> <span class="o">&gt;=</span> <span class="n">pf</span><span class="p">.</span><span class="n">round_start_id</span>
+         <span class="k">JOIN</span> <span class="n">Player_DIM</span> <span class="n">pd</span>
+              <span class="k">ON</span> <span class="n">pf</span><span class="p">.</span><span class="n">player_id</span> <span class="o">=</span> <span class="n">pd</span><span class="p">.</span><span class="n">player_id</span>
+         <span class="k">GROUP</span> <span class="k">BY</span> <span class="n">fpt</span><span class="p">.</span><span class="n">event_id</span><span class="p">,</span> <span class="n">pd</span><span class="p">.</span><span class="n">player_name</span><span class="p">;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="add-running-totals-to-the-leaderboard">
+<h2>Add Running Totals to the Leaderboard<a class="headerlink" href="#add-running-totals-to-the-leaderboard" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-sql"><div class="highlight"><pre><span></span><span class="cm">/* Joining on player_name and all event id&#39;s groups the</span>
+<span class="cm">data to generate running totals */</span>
+<span class="k">DROP</span> <span class="k">VIEW</span> <span class="n">FantasyPlayerRunningTotals</span><span class="p">;</span>
+<span class="k">CREATE</span> <span class="k">VIEW</span> <span class="n">FantasyPlayerRunningTotals</span> <span class="k">AS</span>
+<span class="k">SELECT</span> <span class="n">t1</span><span class="p">.</span><span class="n">id</span><span class="p">,</span> <span class="n">t1</span><span class="p">.</span><span class="n">event_id</span><span class="p">,</span> <span class="n">t1</span><span class="p">.</span><span class="n">player_name</span><span class="p">,</span> <span class="n">t1</span><span class="p">.</span><span class="n">player_points</span><span class="p">,</span>
+         <span class="p">(</span>
+         <span class="k">SELECT</span> <span class="k">SUM</span><span class="p">(</span><span class="n">t2</span><span class="p">.</span><span class="n">player_points</span><span class="p">)</span>
+         <span class="k">FROM</span> <span class="n">FantasyPlayerScore</span> <span class="n">t2</span>
+         <span class="k">WHERE</span> <span class="n">t2</span><span class="p">.</span><span class="n">event_id</span> <span class="o">&lt;=</span> <span class="n">t1</span><span class="p">.</span><span class="n">event_id</span>
+         <span class="k">AND</span> <span class="n">t2</span><span class="p">.</span><span class="n">player_name</span> <span class="o">=</span> <span class="n">t1</span><span class="p">.</span><span class="n">player_name</span>
+         <span class="p">)</span> <span class="k">as</span> <span class="n">accumulated</span>
+<span class="k">FROM</span> <span class="n">FantasyPlayerScore</span> <span class="n">t1</span><span class="p">;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="add-event-rank-and-tour-rank-to-the-leaderboard">
+<h2>Add Event Rank and Tour Rank to the Leaderboard<a class="headerlink" href="#add-event-rank-and-tour-rank-to-the-leaderboard" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-sql"><div class="highlight"><pre><span></span><span class="k">DROP</span> <span class="k">VIEW</span> <span class="k">IF</span> <span class="k">EXISTS</span> <span class="n">FantasyPlayerRanking</span><span class="p">;</span>
+<span class="k">CREATE</span> <span class="k">VIEW</span> <span class="n">FantasyPlayerRanking</span> <span class="k">AS</span>
+<span class="k">SELECT</span>  <span class="n">p1</span><span class="p">.</span><span class="o">*</span><span class="p">,</span> <span class="p">(</span>
+            <span class="k">SELECT</span> <span class="k">COUNT</span><span class="p">(</span><span class="o">*</span><span class="p">)</span><span class="o">+</span><span class="mi">1</span>
+            <span class="k">FROM</span> <span class="n">FantasyPlayerRunningTotals</span> <span class="k">as</span> <span class="n">p2</span>
+            <span class="k">WHERE</span> <span class="n">p2</span><span class="p">.</span><span class="n">player_points</span> <span class="o">&gt;</span> <span class="n">p1</span><span class="p">.</span><span class="n">player_points</span>
+            <span class="k">AND</span> <span class="n">p2</span><span class="p">.</span><span class="n">event_id</span> <span class="o">=</span> <span class="n">p1</span><span class="p">.</span><span class="n">event_id</span>
+            <span class="p">)</span> <span class="k">as</span> <span class="n">eventrank</span><span class="p">,</span>
+            <span class="p">(</span>
+            <span class="k">SELECT</span> <span class="k">COUNT</span><span class="p">(</span><span class="o">*</span><span class="p">)</span><span class="o">+</span><span class="mi">1</span>
+            <span class="k">FROM</span> <span class="n">FantasyPlayerRunningTotals</span> <span class="k">as</span> <span class="n">p2</span>
+            <span class="k">WHERE</span> <span class="n">p2</span><span class="p">.</span><span class="n">accumulated</span> <span class="o">&gt;</span> <span class="n">p1</span><span class="p">.</span><span class="n">accumulated</span>
+            <span class="k">AND</span> <span class="n">p2</span><span class="p">.</span><span class="n">event_id</span> <span class="o">=</span> <span class="n">p1</span><span class="p">.</span><span class="n">event_id</span>
+            <span class="p">)</span> <span class="k">as</span> <span class="n">tourrank</span>
+<span class="k">FROM</span>    <span class="n">FantasyPlayerRunningTotals</span> <span class="k">as</span> <span class="n">p1</span>
+<span class="k">ORDER</span> <span class="k">BY</span> <span class="n">p1</span><span class="p">.</span><span class="n">event_id</span><span class="p">,</span> <span class="n">tourrank</span><span class="p">;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="add-change-in-rank-to-the-leaderboard">
+<h2>Add Change in Rank to the Leaderboard<a class="headerlink" href="#add-change-in-rank-to-the-leaderboard" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-sql"><div class="highlight"><pre><span></span><span class="k">DROP</span> <span class="k">VIEW</span> <span class="k">IF</span> <span class="k">EXISTS</span> <span class="n">FantasyPlayerStatus</span><span class="p">;</span>
+<span class="k">CREATE</span> <span class="k">VIEW</span> <span class="n">FantasyPlayerStatus</span> <span class="k">AS</span>
+<span class="k">SELECT</span> <span class="n">p1</span><span class="p">.</span><span class="o">*</span><span class="p">,</span> <span class="p">(</span><span class="n">tourrank</span> <span class="o">-</span> <span class="p">(</span>
+   <span class="k">SELECT</span> <span class="n">tourrank</span>
+   <span class="k">FROM</span> <span class="n">FantasyPlayerRanking</span> <span class="k">as</span> <span class="n">p2</span>
+   <span class="k">WHERE</span> <span class="n">p2</span><span class="p">.</span><span class="n">event_id</span> <span class="o">=</span> <span class="n">p1</span><span class="p">.</span><span class="n">event_id</span><span class="o">-</span><span class="mi">1</span>
+   <span class="k">AND</span> <span class="n">p2</span><span class="p">.</span><span class="n">player_name</span> <span class="o">=</span> <span class="n">p1</span><span class="p">.</span><span class="n">player_name</span>
+   <span class="p">))</span> <span class="o">*</span> <span class="o">-</span><span class="mi">1</span> <span class="k">as</span> <span class="n">rankchange</span>
+<span class="k">FROM</span> <span class="n">FantasyPlayerRanking</span> <span class="k">as</span> <span class="n">p1</span><span class="p">;</span>
+<span class="k">select</span> <span class="o">*</span> <span class="k">from</span> <span class="n">FantasyPlayerStatus</span><span class="p">;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="add-required-points-to-the-leaderboard">
+<h2>Add Required Points to the Leaderboard<a class="headerlink" href="#add-required-points-to-the-leaderboard" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-sql"><div class="highlight"><pre><span></span><span class="k">DROP</span> <span class="k">TABLE</span> <span class="k">IF</span> <span class="k">EXISTS</span> <span class="n">FantasyLeaderBoard</span><span class="p">;</span>
+<span class="k">CREATE</span> <span class="k">TABLE</span> <span class="n">FantasyLeaderBoard</span> <span class="k">AS</span>
+<span class="k">SELECT</span> <span class="n">p1</span><span class="p">.</span><span class="o">*</span><span class="p">,</span> <span class="n">ROUND</span><span class="p">((</span>
+        <span class="k">SELECT</span> <span class="k">MAX</span><span class="p">(</span><span class="n">accumulated</span><span class="p">)</span>
+        <span class="k">FROM</span> <span class="n">FantasyPlayerStatus</span> <span class="k">as</span> <span class="n">p2</span>
+        <span class="k">WHERE</span> <span class="n">p2</span><span class="p">.</span><span class="n">event_id</span> <span class="o">=</span> <span class="n">p1</span><span class="p">.</span><span class="n">event_id</span>
+        <span class="k">GROUP</span> <span class="k">BY</span> <span class="n">event_id</span>
+        <span class="p">)</span> <span class="o">-</span> <span class="n">p1</span><span class="p">.</span><span class="n">accumulated</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="k">as</span> <span class="n">requiredpoints</span>
+<span class="k">FROM</span> <span class="n">FantasyPlayerStatus</span> <span class="k">as</span> <span class="n">p1</span><span class="p">;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="drop-tables-not-needed-in-the-django-app">
+<h2>Drop tables not needed in the django app<a class="headerlink" href="#drop-tables-not-needed-in-the-django-app" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-sql"><div class="highlight"><pre><span></span><span class="k">DROP</span> <span class="k">TABLE</span> <span class="n">Events_DIM</span><span class="p">;</span>
+<span class="k">DROP</span> <span class="k">TABLE</span> <span class="n">Player_DIM</span><span class="p">;</span>
+<span class="k">DROP</span> <span class="k">TABLE</span> <span class="n">Rounds_DIM</span><span class="p">;</span>
+<span class="k">DROP</span> <span class="k">TABLE</span> <span class="n">Picks_FACT</span><span class="p">;</span>
+<span class="k">DROP</span> <span class="k">TABLE</span> <span class="n">Events_FACT</span><span class="p">;</span>
+<span class="k">DROP</span> <span class="k">VIEW</span> <span class="n">MaxBonusRound</span><span class="p">;</span>
+<span class="k">DROP</span> <span class="k">VIEW</span> <span class="n">SurferBonusRounds</span><span class="p">;</span>
+<span class="k">DROP</span> <span class="k">TABLE</span> <span class="n">FantasyPlayerScore</span><span class="p">;</span>
+<span class="k">DROP</span> <span class="k">VIEW</span> <span class="n">FantasyPlayerRunningTotals</span><span class="p">;</span>
+<span class="k">DROP</span> <span class="k">VIEW</span> <span class="n">FantasyPlayerRanking</span><span class="p">;</span>
+<span class="k">DROP</span> <span class="k">VIEW</span> <span class="n">FantasyPlayerStatus</span><span class="p">;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="tables-remaining-django-models">
+<h2>Tables Remaining (Django Models)<a class="headerlink" href="#tables-remaining-django-models" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-sql"><div class="highlight"><pre><span></span><span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="n">FantasyPicks</span><span class="p">;</span>
+<span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="n">FantasyPointsTable</span><span class="p">;</span>
+<span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="n">FantasyLeaderBoard</span><span class="p">;</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="django.html" class="btn btn-neutral float-right" title="Django App" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="data.html" class="btn btn-neutral" title="Data" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, Ray Blick.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'3.4',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

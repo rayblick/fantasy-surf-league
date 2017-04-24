@@ -1,0 +1,323 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Project layout &mdash; Fantasy Surf League 3.4 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
+    <link rel="top" title="Fantasy Surf League 3.4 documentation" href="../index.html"/>
+        <link rel="next" title="Data" href="data.html"/>
+        <link rel="prev" title="WSL Surf Fantasy Competition" href="comp.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../README.html" class="icon icon-home"> Fantasy Surf League
+          
+
+          
+          </a>
+
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="intro.html">Introduction</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="intro.html#aim">Aim</a></li>
+<li class="toctree-l2"><a class="reference internal" href="intro.html#scope">Scope</a></li>
+<li class="toctree-l2"><a class="reference internal" href="intro.html#out-of-scope">Out of Scope</a></li>
+<li class="toctree-l2"><a class="reference internal" href="intro.html#assumptions">Assumptions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="intro.html#time">Time</a></li>
+<li class="toctree-l2"><a class="reference internal" href="intro.html#contributors">Contributors</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="comp.html">WSL Surf Fantasy Competition</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="comp.html#summary">Summary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="comp.html#data-considerations">Data Considerations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="comp.html#naming-conventions">Naming conventions</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Project layout</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#tree">Tree</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="data.html">Data</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="data.html#files">Files</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="db.html">Database</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="db.html#create-db">Create DB</a></li>
+<li class="toctree-l2"><a class="reference internal" href="db.html#import-data">Import Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="db.html#create-fantasy-picks-table-django-model">Create Fantasy Picks Table (Django Model)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="db.html#creating-view-to-handle-bonus-rounds">Creating &#8220;VIEW&#8221; to handle bonus rounds</a></li>
+<li class="toctree-l2"><a class="reference internal" href="db.html#create-fantasy-points-table">Create Fantasy Points Table</a></li>
+<li class="toctree-l2"><a class="reference internal" href="db.html#create-leaderboard">Create Leaderboard</a></li>
+<li class="toctree-l2"><a class="reference internal" href="db.html#add-running-totals-to-the-leaderboard">Add Running Totals to the Leaderboard</a></li>
+<li class="toctree-l2"><a class="reference internal" href="db.html#add-event-rank-and-tour-rank-to-the-leaderboard">Add Event Rank and Tour Rank to the Leaderboard</a></li>
+<li class="toctree-l2"><a class="reference internal" href="db.html#add-change-in-rank-to-the-leaderboard">Add Change in Rank to the Leaderboard</a></li>
+<li class="toctree-l2"><a class="reference internal" href="db.html#add-required-points-to-the-leaderboard">Add Required Points to the Leaderboard</a></li>
+<li class="toctree-l2"><a class="reference internal" href="db.html#drop-tables-not-needed-in-the-django-app">Drop tables not needed in the django app</a></li>
+<li class="toctree-l2"><a class="reference internal" href="db.html#tables-remaining-django-models">Tables Remaining (Django Models)</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="django.html">Django App</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="django.html#requirements">Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="django.html#app-design">App Design</a></li>
+<li class="toctree-l2"><a class="reference internal" href="django.html#create-django-project-and-app">Create Django Project and App</a></li>
+<li class="toctree-l2"><a class="reference internal" href="django.html#generate-django-models-from-sqlite-database">Generate Django Models from SQLite Database</a></li>
+<li class="toctree-l2"><a class="reference internal" href="django.html#database-setup-fantasy-settings-py">Database setup (fantasy/settings.py)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="django.html#urls-py-dashboard-app">urls.py (dashboard app)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="django.html#create-user">Create User</a></li>
+<li class="toctree-l2"><a class="reference internal" href="django.html#migrate-changes">Migrate Changes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="django.html#added-project-directories">Added Project Directories</a></li>
+<li class="toctree-l2"><a class="reference internal" href="django.html#modifying-views-py-to-access-querysets">Modifying views.py to Access Querysets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="django.html#views-py">views.py</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="interface.html">User Interface</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="interface.html#queryset">QUERYSET</a></li>
+<li class="toctree-l2"><a class="reference internal" href="interface.html#list">LIST</a></li>
+<li class="toctree-l2"><a class="reference internal" href="interface.html#value">VALUE</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="updates.html">Updating</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../README.html">Fantasy Surf League</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../README.html">Docs</a> &raquo;</li>
+        
+      <li>Project layout</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/pages/layout.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="project-layout">
+<h1>Project layout<a class="headerlink" href="#project-layout" title="Permalink to this headline">¶</a></h1>
+<p>This project is separated into three main sections, including (1) data, (2) db, and (3) the django application (named &#8220;fantasy&#8221;). The development of this project evolved following this sequence of data collection, processing and visualisation. For more detail refer to the sections below.</p>
+<div class="section" id="tree">
+<h2>Tree<a class="headerlink" href="#tree" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-rst"><div class="highlight"><pre><span></span>Project
+|
+├── data
+│   ├── Events_DIM.csv #Manual data collection
+│   ├── Events_FACT.csv
+│   ├── Picks_FACT.csv
+│   ├── Player_DIM.csv
+│   └── Rounds_DIM.csv
+|
+├── db
+│   ├── DB_CREATOR #Processes data to create fantasydb
+│   └── fantasydb #sqlite3 DB
+|
+├── DEVLOG.md #Project change log
+|
+├── fantasy # Django (redacted)
+│   ├── dashboard #App
+│   │   ├── static
+│   │   │   ├── css
+│   │   │   └── img
+│   │   ├── templates
+│   │   │   └── dashboard
+│   │   ├── templatetags
+│   │   ├── ...
+│   ├── db.sqlite3 # default django database
+│   ├── fantasy
+│   │   └── ...
+│   ├── fantasydb #sqlite3 (copy)
+│   └── manage.py
+|
+└── README.md
+</pre></div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="data.html" class="btn btn-neutral float-right" title="Data" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="comp.html" class="btn btn-neutral" title="WSL Surf Fantasy Competition" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, Ray Blick.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'3.4',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

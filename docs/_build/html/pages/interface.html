@@ -1,0 +1,425 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>User Interface &mdash; Fantasy Surf League 3.4 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
+    <link rel="top" title="Fantasy Surf League 3.4 documentation" href="../index.html"/>
+        <link rel="next" title="Updating" href="updates.html"/>
+        <link rel="prev" title="Django App" href="django.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../README.html" class="icon icon-home"> Fantasy Surf League
+          
+
+          
+          </a>
+
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="intro.html">Introduction</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="intro.html#aim">Aim</a></li>
+<li class="toctree-l2"><a class="reference internal" href="intro.html#scope">Scope</a></li>
+<li class="toctree-l2"><a class="reference internal" href="intro.html#out-of-scope">Out of Scope</a></li>
+<li class="toctree-l2"><a class="reference internal" href="intro.html#assumptions">Assumptions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="intro.html#time">Time</a></li>
+<li class="toctree-l2"><a class="reference internal" href="intro.html#contributors">Contributors</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="comp.html">WSL Surf Fantasy Competition</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="comp.html#summary">Summary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="comp.html#data-considerations">Data Considerations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="comp.html#naming-conventions">Naming conventions</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="layout.html">Project layout</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="layout.html#tree">Tree</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="data.html">Data</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="data.html#files">Files</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="db.html">Database</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="db.html#create-db">Create DB</a></li>
+<li class="toctree-l2"><a class="reference internal" href="db.html#import-data">Import Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="db.html#create-fantasy-picks-table-django-model">Create Fantasy Picks Table (Django Model)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="db.html#creating-view-to-handle-bonus-rounds">Creating &#8220;VIEW&#8221; to handle bonus rounds</a></li>
+<li class="toctree-l2"><a class="reference internal" href="db.html#create-fantasy-points-table">Create Fantasy Points Table</a></li>
+<li class="toctree-l2"><a class="reference internal" href="db.html#create-leaderboard">Create Leaderboard</a></li>
+<li class="toctree-l2"><a class="reference internal" href="db.html#add-running-totals-to-the-leaderboard">Add Running Totals to the Leaderboard</a></li>
+<li class="toctree-l2"><a class="reference internal" href="db.html#add-event-rank-and-tour-rank-to-the-leaderboard">Add Event Rank and Tour Rank to the Leaderboard</a></li>
+<li class="toctree-l2"><a class="reference internal" href="db.html#add-change-in-rank-to-the-leaderboard">Add Change in Rank to the Leaderboard</a></li>
+<li class="toctree-l2"><a class="reference internal" href="db.html#add-required-points-to-the-leaderboard">Add Required Points to the Leaderboard</a></li>
+<li class="toctree-l2"><a class="reference internal" href="db.html#drop-tables-not-needed-in-the-django-app">Drop tables not needed in the django app</a></li>
+<li class="toctree-l2"><a class="reference internal" href="db.html#tables-remaining-django-models">Tables Remaining (Django Models)</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="django.html">Django App</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="django.html#requirements">Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="django.html#app-design">App Design</a></li>
+<li class="toctree-l2"><a class="reference internal" href="django.html#create-django-project-and-app">Create Django Project and App</a></li>
+<li class="toctree-l2"><a class="reference internal" href="django.html#generate-django-models-from-sqlite-database">Generate Django Models from SQLite Database</a></li>
+<li class="toctree-l2"><a class="reference internal" href="django.html#database-setup-fantasy-settings-py">Database setup (fantasy/settings.py)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="django.html#urls-py-dashboard-app">urls.py (dashboard app)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="django.html#create-user">Create User</a></li>
+<li class="toctree-l2"><a class="reference internal" href="django.html#migrate-changes">Migrate Changes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="django.html#added-project-directories">Added Project Directories</a></li>
+<li class="toctree-l2"><a class="reference internal" href="django.html#modifying-views-py-to-access-querysets">Modifying views.py to Access Querysets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="django.html#views-py">views.py</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">User Interface</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#queryset">QUERYSET</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#list">LIST</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#value">VALUE</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="updates.html">Updating</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../README.html">Fantasy Surf League</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../README.html">Docs</a> &raquo;</li>
+        
+      <li>User Interface</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/pages/interface.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="user-interface">
+<h1>User Interface<a class="headerlink" href="#user-interface" title="Permalink to this headline">¶</a></h1>
+<p>The dashboard contains four main areas each requiring a different set of data. The four areas (clockwise from top left) include 1) event selection buttons, 2) leaderboard, 3) badges, and 4) surfer selections and results. All of the required information to generate these areas of the dashboard are passed from the &#8220;context&#8221; dictionary in views.py.</p>
+<p>Most of the information is reduced to a list or dictionary. However, I have transformed the data in two ways. First, the leaderboard is reduced to the required data before it reaches the Django app, and second, the surfer selection and results area is entirely processed in views.py. The data processing has occurred this way because I already had a vision of what the leaderboard should look like, but the selection area required a little prototyping in building the html layout before I knew what it should look like. Unless I get complaints about performance issues then this method of processing these data will stay as it is.</p>
+<p>![Screen shot](fantasy/dashboard/static/img/screenshot.png &#8220;Screen shot&#8221;)</p>
+<p>I used a variety of ways to pass data across to the webpage. I will cover them here as a reference for later.</p>
+<div class="section" id="queryset">
+<h2>QUERYSET<a class="headerlink" href="#queryset" title="Permalink to this headline">¶</a></h2>
+<p>The queryset is provides all filtered information from the Django model. Access to these data can be done using dot notation and the name of model fields. Another process to note is the use of the templatetag &#8220;{{ position.accumulated | floatformat:&#8221;2&#8221; }}&#8221; to round the values in the &#8220;accumulated&#8221; field to 2 decimal places. I have created several custom templatetags which are stored in &#8220;fantasy/dashboard/templatetags/dashboard_extras.py&#8221;. Reminder: Templatetags need to be imported in a similar way to static files (I.e. at the top of the html page type: {% load dashboard_extras %}).</p>
+<p><strong>views.py</strong></p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">championshiptour</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">eventid</span><span class="p">):</span>
+        <span class="c1"># Processing...</span>
+
+        <span class="n">leaderboard</span> <span class="o">=</span> <span class="n">FantasyLeaderBoard</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">using</span><span class="p">(</span>
+          <span class="s1">&#39;fantasydb&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">event_id</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span><span class="n">eventid</span><span class="p">))</span>
+
+        <span class="n">context</span> <span class="o">=</span> <span class="p">{</span><span class="c1"># Other data...</span>
+                   <span class="s1">&#39;leaderboard&#39;</span><span class="p">:</span> <span class="n">leaderboard</span> <span class="p">}</span>
+
+        <span class="c1"># render page</span>
+        <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s1">&#39;dashboard/index.html&#39;</span><span class="p">,</span> <span class="n">context</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>index.html</strong></p>
+<div class="highlight-html"><div class="highlight"><pre><span></span>&lt;!--process context --&gt;
+&lt;div class=&quot;table-responsive&quot;&gt;
+        &lt;table class=&quot;table&quot;&gt;
+            &lt;thead&gt;
+              &lt;tr&gt;
+                &lt;th&gt;#&lt;/th&gt;
+                &lt;th align=&quot;left&quot;&gt;Player&lt;/th&gt;
+                &lt;th align=&quot;center&quot;&gt;Points&lt;/th&gt;
+                &lt;th align=&quot;center&quot;&gt;Rank&lt;/th&gt;
+                &lt;th align=&quot;center&quot;&gt;Change&lt;/th&gt;
+                &lt;th align=&quot;center&quot;&gt;Required&lt;/th&gt;
+              &lt;/tr&gt;
+            &lt;/thead&gt;
+            &lt;tbody&gt;
+                 {% for position in leaderboard %}
+                     &lt;tr&gt;
+                         &lt;!-- Provide an Icon for rank change --&gt;
+                         {% if position.rankchange &gt;= 1 %}
+                             &lt;td align=&quot;center&quot;&gt;&lt;img src=&quot;{% static &#39;img/up.png&#39; %}&quot; style=&quot;width:15px;height:15px;&quot;/&gt;&lt;/td&gt;
+                         {% elif position.rankchange &lt;= -1 %}
+                             &lt;td align=&quot;center&quot;&gt;&lt;img src=&quot;{% static &#39;img/dn.png&#39; %}&quot; style=&quot;width:15px;height:15px;&quot;/&gt;&lt;/td&gt;
+                         {% else %}
+                             &lt;td align=&quot;center&quot;&gt;-&lt;/td&gt;
+                         {% endif %}
+
+                         &lt;!-- Add remaining fields --&gt;
+                         &lt;td align=&quot;left&quot;&gt;{{ position.player_name}}&lt;/td&gt;
+                         &lt;td align=&quot;center&quot;&gt;{{ position.accumulated | floatformat:&quot;2&quot; }}&lt;/td&gt;
+                         &lt;td align=&quot;center&quot;&gt;{{ position.tourrank }}&lt;/td&gt;
+                         &lt;td align=&quot;center&quot;&gt;{{ position.rankchange }}&lt;/td&gt;
+                         &lt;td align=&quot;center&quot;&gt;{{ position.requiredpoints }}&lt;/td&gt;
+                     &lt;/tr&gt;
+                 {% endfor %}
+            &lt;/tbody&gt;
+        &lt;/table&gt;
+&lt;/div&gt;
+</pre></div>
+</div>
+</div>
+<div class="section" id="list">
+<h2>LIST<a class="headerlink" href="#list" title="Permalink to this headline">¶</a></h2>
+<p>A &#8220;list&#8221; or in many of my cases a &#8220;list of lists&#8221; was a common method that I used to pass grouped information processed in views.py. Here dot notation is used but the values are called as positions. For example, imagine that you pass myList=[[1,2],[3,4]] to the page, you can access the last position of the second list by typing myList.1.1 (zero indexing).</p>
+<p><strong>views.py</strong></p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">championshiptour</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">eventid</span><span class="p">):</span>
+        <span class="c1"># Processing...</span>
+
+        <span class="c1"># place holder for results</span>
+        <span class="n">mostpickedsurfer</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="c1"># count each surfer in picks</span>
+        <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">picks_surfers</span><span class="p">):</span>
+            <span class="n">mps</span> <span class="o">=</span> <span class="p">[</span><span class="n">s</span><span class="p">,</span> <span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">surferlist</span><span class="p">)</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="n">s</span><span class="p">)</span><span class="o">/</span><span class="n">numselections</span><span class="p">)</span><span class="o">*</span><span class="mi">100</span><span class="p">]</span>
+            <span class="n">mostpickedsurfer</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">mps</span><span class="p">)</span>
+
+        <span class="c1"># sort function</span>
+        <span class="k">def</span> <span class="nf">SortByMaxPoints</span><span class="p">(</span><span class="n">elem</span><span class="p">):</span>
+          <span class="k">return</span> <span class="n">elem</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+
+        <span class="c1"># sort</span>
+        <span class="n">mps</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">mostpickedsurfer</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="n">SortByMaxPoints</span><span class="p">,</span> <span class="n">reverse</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+
+        <span class="n">context</span> <span class="o">=</span> <span class="p">{</span><span class="c1"># Other data...</span>
+                   <span class="s1">&#39;mps&#39;</span><span class="p">:</span> <span class="n">mps</span> <span class="p">}</span>
+
+        <span class="c1"># render page</span>
+        <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s1">&#39;dashboard/index.html&#39;</span><span class="p">,</span> <span class="n">context</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>index.html</strong></p>
+<div class="highlight-html"><div class="highlight"><pre><span></span>{% for line in res %}
+        <span class="p">&lt;</span><span class="nt">tr</span><span class="p">&gt;</span>
+            <span class="p">&lt;</span><span class="nt">td</span><span class="p">&gt;</span>{{line.0}}<span class="p">&lt;/</span><span class="nt">td</span><span class="p">&gt;</span>
+            <span class="p">&lt;</span><span class="nt">td</span> <span class="na">align</span><span class="o">=</span><span class="s">&quot;center&quot;</span><span class="p">&gt;</span>{{line.1.0.0}}<span class="p">&lt;/</span><span class="nt">td</span><span class="p">&gt;</span>
+
+            <span class="c">&lt;!-- Handle bonus rounds --&gt;</span>
+            {% if line.1.1.1 == &#39;b&#39; %}
+                <span class="p">&lt;</span><span class="nt">td</span> <span class="na">title</span><span class="o">=</span><span class="s">&quot;Bonus Round&quot;</span> <span class="na">align</span><span class="o">=</span><span class="s">&quot;center&quot;</span> <span class="na">style</span><span class="o">=</span><span class="s">&quot;background:lightgreen&quot;</span><span class="p">&gt;</span>{{line.1.1.0}}<span class="p">&lt;/</span><span class="nt">td</span><span class="p">&gt;</span>
+            {% else %}
+                <span class="p">&lt;</span><span class="nt">td</span> <span class="na">align</span><span class="o">=</span><span class="s">&quot;center&quot;</span><span class="p">&gt;</span>{{line.1.1.0}}<span class="p">&lt;/</span><span class="nt">td</span><span class="p">&gt;</span>
+            {% endif %}
+
+            <span class="c">&lt;!-- more processing of the list of lists....--&gt;</span>
+
+        <span class="p">&lt;/</span><span class="nt">tr</span><span class="p">&gt;</span>
+{% endfor %}
+</pre></div>
+</div>
+</div>
+<div class="section" id="value">
+<h2>VALUE<a class="headerlink" href="#value" title="Permalink to this headline">¶</a></h2>
+<p>Here I pass the eventid straight through unmodified. The reason I do this is to change the colour of the event selection circle/button to signify what data is being viewed.</p>
+<p><strong>views.py</strong></p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">championshiptour</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">eventid</span><span class="p">):</span>
+        <span class="c1"># Processing...</span>
+
+        <span class="n">context</span> <span class="o">=</span> <span class="p">{</span><span class="c1"># Other data...</span>
+                   <span class="s1">&#39;eventid&#39;</span><span class="p">:</span><span class="n">eventid</span> <span class="p">}</span>
+
+        <span class="c1"># render page</span>
+        <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s1">&#39;dashboard/index.html&#39;</span><span class="p">,</span> <span class="n">context</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>index.html</strong></p>
+<div class="highlight-html"><div class="highlight"><pre><span></span><span class="c">&lt;!-- Note that the data type is string not integer --&gt;</span>
+
+{% if eventid == &quot;1&quot; %}
+        <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;stop-image&quot;</span> <span class="na">style</span><span class="o">=</span><span class="s">&quot;background: rgb(245, 222, 0)&quot;</span><span class="p">&gt;</span>
+            1
+        <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+{% else %}
+        <span class="p">&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;{% url &#39;championshiptour&#39; &#39;1&#39; %}&quot;</span><span class="p">&gt;</span>
+            <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;stop-image&quot;</span><span class="p">&gt;</span>1<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+        <span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
+{% endif %}
+</pre></div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="updates.html" class="btn btn-neutral float-right" title="Updating" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="django.html" class="btn btn-neutral" title="Django App" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, Ray Blick.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'3.4',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>
