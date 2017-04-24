@@ -26,4 +26,4 @@
 20170420 Added background colour and tooltip for bonus rounds  
 20170421 Created stand alone public repo  
 20170421 Updated documentation  
-
+20170424 Created Sphinx documentation
