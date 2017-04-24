@@ -27,3 +27,5 @@
 20170421 Created stand alone public repo  
 20170421 Updated documentation  
 20170424 Created Sphinx documentation
+20170424 Deployed app on pythonanywhere.com
+20170425 Rebuilt app and documented the steps 

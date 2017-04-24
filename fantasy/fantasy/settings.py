@@ -20,12 +20,17 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'jt!^*3dze9rdtxgkt!lmid@v08lln5jhfhy_wi&alexxf8yryu'
+with open(os.path.join(BASE_DIR, 'secret_key.txt')) as f:
+    SECRET_KEY = f.read().strip()
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+#DEBUG = True     
+# Use DEBUG = True in local development
+DEBUG = False
+# Using DEBUG = False turns off static files mapping
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['rayblick.pythonanywhere.com', '121.0.0.1']
+# Keep local host for dev testing
 
 
 # Application definition

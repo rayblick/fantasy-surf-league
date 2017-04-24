@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Updating &mdash; Fantasy Surf League 3.4 documentation</title>
+  <title>Deployment &mdash; Fantasy Surf League 3.4 documentation</title>
   
 
   
@@ -36,8 +36,7 @@
               href="../genindex.html"/>
         <link rel="search" title="Search" href="../search.html"/>
     <link rel="top" title="Fantasy Surf League 3.4 documentation" href="../index.html"/>
-        <link rel="next" title="Deployment" href="deploy.html"/>
-        <link rel="prev" title="User Interface" href="interface.html"/> 
+        <link rel="prev" title="Updating" href="updates.html"/> 
 
   
   <script src="../_static/js/modernizr.min.js"></script>
@@ -143,19 +142,15 @@
 <li class="toctree-l2"><a class="reference internal" href="interface.html#value">VALUE</a></li>
 </ul>
 </li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Updating</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#development">Development</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#production">Production</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="deploy.html">Deployment</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="deploy.html#create-gitignore-file-no-extension">Create gitignore file (no extension)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="deploy.html#changes-in-settings-py">Changes in settings.py</a></li>
-<li class="toctree-l2"><a class="reference internal" href="deploy.html#create-pythonanywhere-account">Create Pythonanywhere account</a></li>
-<li class="toctree-l2"><a class="reference internal" href="deploy.html#clone-project-repo">Clone project repo</a></li>
-<li class="toctree-l2"><a class="reference internal" href="deploy.html#pythonanywhere-virtualenv-django-install">Pythonanywhere virtualenv (Django install)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="deploy.html#static-mapping">Static mapping</a></li>
-<li class="toctree-l2"><a class="reference internal" href="deploy.html#pull-any-changes">Pull any changes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="updates.html">Updating</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Deployment</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#create-gitignore-file-no-extension">Create gitignore file (no extension)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#changes-in-settings-py">Changes in settings.py</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#create-pythonanywhere-account">Create Pythonanywhere account</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#clone-project-repo">Clone project repo</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pythonanywhere-virtualenv-django-install">Pythonanywhere virtualenv (Django install)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#static-mapping">Static mapping</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pull-any-changes">Pull any changes</a></li>
 </ul>
 </li>
 </ul>
@@ -202,13 +197,13 @@
     
       <li><a href="../README.html">Docs</a> &raquo;</li>
         
-      <li>Updating</li>
+      <li>Deployment</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
             
-            <a href="../_sources/pages/updates.rst.txt" rel="nofollow"> View page source</a>
+            <a href="../_sources/pages/deploy.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -221,27 +216,84 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="updating">
-<h1>Updating<a class="headerlink" href="#updating" title="Permalink to this headline">¶</a></h1>
-<p>This project has a manual data entry component. It takes about 30 mins to enter the new records (Fantasy team of 7 players picking 8 surfers). It is important that the names of the surfers match in each csv file. I decided against using an ID key for surfer names because it took longer from continuously double checking my entries, and the convienience of tab completion helped to spot errors immediately.</p>
-<div class="section" id="development">
-<h2>Development<a class="headerlink" href="#development" title="Permalink to this headline">¶</a></h2>
+  <div class="section" id="deployment">
+<h1>Deployment<a class="headerlink" href="#deployment" title="Permalink to this headline">¶</a></h1>
+<p>I used Pythonanywhere to deploy this dashboard. The general setup is to do development work on the local PC. All changes are pushed to the remote repository and then pulled down to the production server.
+See <a class="reference external" href="https://help.pythonanywhere.com/pages/DeployExistingDjangoProject/">https://help.pythonanywhere.com/pages/DeployExistingDjangoProject/</a>.</p>
+<div class="section" id="create-gitignore-file-no-extension">
+<h2>Create gitignore file (no extension)<a class="headerlink" href="#create-gitignore-file-no-extension" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>nano .gitignore
+<span class="c1"># add secret key to file (e.g. fantasy/secret_key.txt)</span>
+
+nano fantasy/secret_key.txt
+<span class="c1"># update in the next step</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="changes-in-settings-py">
+<h2>Changes in settings.py<a class="headerlink" href="#changes-in-settings-py" title="Permalink to this headline">¶</a></h2>
+<p>Cut and paste the secret key to a txt document. Change debugging options.</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="c1"># SECURITY WARNING: keep the secret key used in production secret!</span>
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">BASE_DIR</span><span class="p">,</span> <span class="s1">&#39;secret_key.txt&#39;</span><span class="p">))</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="n">SECRET_KEY</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+
+<span class="c1"># SECURITY WARNING: don&#39;t run with debug turned on in production!</span>
+<span class="c1">#DEBUG = True</span>
+<span class="c1"># Use DEBUG = True in local development</span>
+<span class="n">DEBUG</span> <span class="o">=</span> <span class="bp">False</span>
+<span class="c1"># Use DEBUG = False turns off static files mapping</span>
+<span class="n">ALLOWED_HOSTS</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;rayblick.pythonanywhere.com&#39;</span><span class="p">,</span> <span class="s1">&#39;121.0.0.1&#39;</span><span class="p">]</span>
+<span class="c1"># Keep local host for dev testing</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="create-pythonanywhere-account">
+<h2>Create Pythonanywhere account<a class="headerlink" href="#create-pythonanywhere-account" title="Permalink to this headline">¶</a></h2>
+<p>Follow signup instructions at <a class="reference external" href="https://www.pythonanywhere.com">https://www.pythonanywhere.com</a></p>
+</div>
+<div class="section" id="clone-project-repo">
+<h2>Clone project repo<a class="headerlink" href="#clone-project-repo" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>Add new data to the csv files (.data/)</li>
-<li>Run the sqlite fantasy DB ($&gt; sqlite fantasydb)</li>
-<li>Rerun the entire sql script (.db/DB_CREATOR.txt)</li>
-<li>Copy new DB across to the Django project</li>
-<li>Test that the scores match/check typos etc</li>
-<li>Modify HTML to include the event selection buttons</li>
-<li>Update development log if changes are made</li>
-<li>git push all changes to github</li>
+<li>Navigate to &#8220;Consoles tab&#8221;</li>
+<li>Navigate to &#8220;Start a new console&#8221; section</li>
+<li>Select &#8220;Bash&#8221; console and clone repo</li>
+</ul>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>git clone https://github.com/rayblick/fantasy-surf-league.git
+</pre></div>
+</div>
+<ul class="simple">
+<li>Create secret_key.txt in production</li>
 </ul>
 </div>
-<div class="section" id="production">
-<h2>Production<a class="headerlink" href="#production" title="Permalink to this headline">¶</a></h2>
-<ul class="simple">
-<li>git pull changes to git hub repository to Pythonanywhere server</li>
+<div class="section" id="pythonanywhere-virtualenv-django-install">
+<h2>Pythonanywhere virtualenv (Django install)<a class="headerlink" href="#pythonanywhere-virtualenv-django-install" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>$ mkvirtualenv --python<span class="o">=</span>/usr/bin/python3.5 fantasy
+<span class="o">(</span>fantasy<span class="o">)</span>$ pip install django
+</pre></div>
+</div>
+</div>
+<div class="section" id="static-mapping">
+<h2>Static mapping<a class="headerlink" href="#static-mapping" title="Permalink to this headline">¶</a></h2>
+<ul>
+<li><p class="first">Navigate to Web tab</p>
+</li>
+<li><p class="first">Navigate to static files</p>
+</li>
+<li><p class="first">Keep the URL as /static/</p>
+</li>
+<li><dl class="first docutils">
+<dt>Add the dashboard directory</dt>
+<dd><ul class="first last simple">
+<li>/home/ray/fantasy-surf-league/fantasy/dashboard/static/</li>
 </ul>
+</dd>
+</dl>
+</li>
+</ul>
+</div>
+<div class="section" id="pull-any-changes">
+<h2>Pull any changes<a class="headerlink" href="#pull-any-changes" title="Permalink to this headline">¶</a></h2>
+<p>Last step is to pull in any changes from development. I am not making changes on Pythonanywhere.com.</p>
 </div>
 </div>
 
@@ -255,10 +307,8 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="deploy.html" class="btn btn-neutral float-right" title="Deployment" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
-      
-        <a href="interface.html" class="btn btn-neutral" title="User Interface" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="updates.html" class="btn btn-neutral" title="Updating" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

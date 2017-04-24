@@ -19,6 +19,7 @@ Welcome to Fantasy Surf League's documentation!
    pages/django
    pages/interface
    pages/updates
+   pages/deploy
 
 Indices and tables
 ==================

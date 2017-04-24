@@ -694,15 +694,87 @@ def championshiptour(request, eventid):
 
 This project has a manual data entry component. It takes about 30 mins to enter the new records (Fantasy team of 7 players picking 8 surfers). It is important that the names of the surfers match in each csv file. I decided against using an ID key for surfer names because it took longer from continuously double checking my entries, and the convienience of tab completion helped to spot errors immediately. 
 
-+ Add new data to the csv files (.data/)
+#### Development
+
++ Add new data to the csv files (.data/) 
 + Run the sqlite fantasy DB ($> sqlite fantasydb) 
-+ Rerun the entire sql script (.db/DB_CREATOR.txt) 
-+ Copy new DB across to the Django project 
-+ Test that the scores match/check typos etc  
++ Rerun the entire sql script (.db/DB_CREATOR.txt)  
++ Copy new DB across to the Django project  
++ Test that the scores match/check typos etc   
++ Modify HTML to include the event selection buttons 
 + Update development log if changes are made 
++ git push all changes to github 
 
 
-
+#### Production
++ git pull changes to git hub repository to Pythonanywhere server
 
 
 ### Deployment
+I used Pythonanywhere to deploy this dashboard. The general setup is to do development work on the local PC. All changes are pushed to the remote repository and then pulled down to the production server.
+See https://help.pythonanywhere.com/pages/DeployExistingDjangoProject/.
+
+
+#### Create gitignore file (no extension)
+
+```bash
+nano .gitignore
+# add secret key to file (e.g. fantasy/secret_key.txt)
+
+nano fantasy/secret_key.txt
+# update in the next step 
+```
+
+#### Changes in settings.py
+Cut and paste the secret key to a txt document. Change debugging options.
+
+```python
+# SECURITY WARNING: keep the secret key used in production secret!
+with open(os.path.join(BASE_DIR, 'secret_key.txt')) as f:
+SECRET_KEY = f.read().strip()
+
+# SECURITY WARNING: don't run with debug turned on in production!
+#DEBUG = True 
+# Use DEBUG = True in local development
+DEBUG = False
+# Use DEBUG = False turns off static files mapping
+ALLOWED_HOSTS = ['rayblick.pythonanywhere.com', '121.0.0.1']
+# Keep local host for dev testing
+```
+
+#### Create Pythonanywhere account
+
+Follow signup instructions at https://www.pythonanywhere.com
+
+
+#### Clone project repo
+
+- Navigate to "Consoles tab" 
+- Navigate to "Start a new console" section 
+- Select "Bash" console and clone repo 
+- Create secret_key.txt in production 
+
+```bash
+git clone https://github.com/rayblick/fantasy-surf-league.git 
+```
+
+#### Pythonanywhere virtualenv (Django install)
+
+```bash
+$ mkvirtualenv --python=/usr/bin/python3.5 fantasy
+(fantasy)$ pip install django
+```
+
+#### Static mapping 
+
+- Navigate to Web tab 
+- Navigate to static files 
+- Keep the URL as /static/ 
+- Add the dashboard directory 
+    - /home/ray/fantasy-surf-league/fantasy/dashboard/static/ 
+
+
+#### Pull any changes
+
+Last step is to pull in any changes from development. I am not making changes on Pythonanywhere.com.
+
