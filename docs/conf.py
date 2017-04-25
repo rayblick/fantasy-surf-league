@@ -18,9 +18,15 @@
 # documentation root, use os.path.abspath to make it absolute, like shown here.
 #
 # import os
-# import sys
+#
+# gh-pages
+#import sys
+#sys.path.append('/home/ray/repos/sphinx-to-github/sphinxtogithub')
+#
 # sys.path.insert(0, os.path.abspath('.'))
 import sphinx_rtd_theme
+
+
 
 # -- General configuration ------------------------------------------------
 
@@ -31,7 +37,9 @@ import sphinx_rtd_theme
 # Add any Sphinx extension module names here, as strings. They can be
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
-extensions = []
+#extensions = []
+# gh-pages
+#extensions = [ "sphinxtogithub" ]
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']

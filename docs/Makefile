@@ -7,6 +7,8 @@ SPHINXBUILD   = sphinx-build
 SPHINXPROJ    = FantasySurfLeague
 SOURCEDIR     = .
 BUILDDIR      = _build
+# gh-pages
+#BUILDDIR      = ~/repos/fantasy-surf-league-docs/
 
 # Put it first so that "make" without argument is like "make help".
 help:
