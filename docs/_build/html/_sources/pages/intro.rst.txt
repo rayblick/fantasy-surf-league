@@ -37,6 +37,10 @@ Time
 ---------
 + 45 hours (3 hour blocks over 15 nights while the baby is sleeping)
 
+Project Status
+----------------
++ Complete 
+
 Contributors 
 -------------
 + Ray Blick

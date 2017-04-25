@@ -28,4 +28,5 @@
 20170421 Updated documentation  
 20170424 Created Sphinx documentation
 20170424 Deployed app on pythonanywhere.com
-20170425 Rebuilt app and documented the steps 
+20170425 Rebuilt app, handled secret_key/security and documented the steps
+20170425 Updated documentation and finalised project  
