@@ -1,6 +1,6 @@
 # Surf Fantasy Dashboard
  
-Alternative documentation format found [here](docs/_build/html/README.html).
+Alternative documentation format found [here](https://rawgit.com/rayblick/fantasy-surf-league/docs/_build/html/README.html).
 
 ## Aim
 The world surf league runs a fantasy sports competition that myself and friends play (players). The existing information available on web and mobile apps are limited. Therefore, the aim of this project is to create a dashboard to more effectively track the changes that occur between events. 
