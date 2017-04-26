@@ -6,6 +6,7 @@ Alternative documentation format found [here](https://rawgit.com/rayblick/fantas
 The world surf league runs a fantasy sports competition that myself and friends play (players). The existing information available on web and mobile apps are limited. Therefore, the aim of this project is to create a dashboard to more effectively track the changes that occur between events. 
 
 ## Scope
++ Mens competition
 + "Fixed" html page showing current results for the fantasy surf competition 
 + Allow players to select previous tour "stops" to see previous results 
 + Deploy application in a publically accessible location 
@@ -33,8 +34,13 @@ The world surf league runs a fantasy sports competition that myself and friends 
 ## Time
 + 45 hours (3 hour blocks over 15 nights while the baby is sleeping)
 
+## Status
+Complete
+
 ## Contributors 
 + Ray Blick
+
+
 
 ## WSL Surf Fantasy
 The world surf league is the governing body of "The World Championship Tour" or "CT" which is a surfing competition for the worlds best. To be on the CT the (male) surfers can (1) qualify on the World Qualifying Series (WQS; top 10), (2) already be on tour and perform reasonably well the year before (top 22), or (3) be a wildcard (2 surfers). There are differences in the womans World Championship Tour which need to be considered in the data collection and transformation steps.

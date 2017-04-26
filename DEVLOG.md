@@ -30,3 +30,6 @@
 20170424 Deployed app on pythonanywhere.com
 20170425 Rebuilt app, handled secret_key/security and documented the steps
 20170425 Updated documentation and finalised project  
+20170426 Project complete - started on "extras"
+20170426 Collected womens data
+20170426 Modified SQL script to include processing of womens data 
