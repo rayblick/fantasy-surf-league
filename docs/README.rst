@@ -20,6 +20,7 @@ Welcome to Fantasy Surf League's documentation!
    pages/interface
    pages/updates
    pages/deploy
+   pages/extras
 
 Indices and tables
 ==================

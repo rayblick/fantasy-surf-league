@@ -7,211 +7,22 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 </head
 <body> 
-<div class="main">
-  <div class="title">
-    <h3> Fantasy Surf League </h3>
-  </div>
-  <div class="content">
-    <div class="left">
-      <div class="stops">
-        <!-- Event 1-->
-        {% if eventid == "1" %}
-          <div class="stop-image" style="background: rgb(245, 222, 0)">
-            1
-          </div>
-        {% else %}
-          <a href="{% url 'championshiptour' '1' %}">
-            <div class="stop-image">1</div>
-          </a>
-        {% endif %}
-
-        <!-- Event 2-->
-        {% if eventid == "2" %}
-          <div class="stop-image" style="background: rgb(245, 222, 0)">2</div>
-        {% else %}
-          <a href="{% url 'championshiptour' '2' %}">
-            <div class="stop-image">2</div>
-          </a>
-        {% endif %}
-
-        <!-- Event 3 -->
-        {% if eventid == "3" %}
-          <div class="stop-image" style="background: rgb(245, 222, 0)">3</div>
-        {% else %}
-          <a href="{% url 'championshiptour' '3' %}">
-            <div class="stop-image">3</div>
-          </a>
-        {% endif %}
-
-        <div class="stop-image-future">4</div>
-        <div class="stop-image-future">5</div>
-        <div class="stop-image-future">6</div>
-        <div class="stop-image-future">7</div>
-        <div class="stop-image-future">8</div>
-        <div class="stop-image-future">9</div>
-        <div class="stop-image-future">10</div>
-        <div class="stop-image-future">11</div>
-      </div>
-      <div class="summarycontent">
-        <div class="summarypanel1">
-          <div class="summarylabel">
-            <h4>{{ eventname.0 }}</h4>
-          </div> 
+  <div class="main">
+    <div class="main-content">
+      <a href="{% url 'menstour' malesmaxevent %}">
+        <div class="index-content">
+          <img src="{% static 'img/boys.png' %}" style="width: auto; height: 300px;"/>
         </div>
-      </div>
-      <div class="picks">
-        <div class="table-responsive">
-         <table class="table">
-         <thead>
-          <tr>
-            <th> Surfer </th>
-            <th class="tableheader">R1</th>
-            <th class="tableheader">R2</th>
-            <th class="tableheader">R3</th>
-            <th class="tableheader">R4</th>
-            <th class="tableheader">R5</th>
-            <th class="tableheader">QF</th>
-            <th class="tableheader">SF</th>
-            <th class="tableheader">F</th>
-            <th class="tableheader">DA</th>
-            <th class="tableheader">SE</th>
-            <th class="tableheader">JM</th>
-            <th class="tableheader">TW</th>
-            <th class="tableheader">RB</th>
-            <th class="tableheader">SH</th>
-            <th class="tableheader">JC</th>
-          </tr>
-          </thead>
-         <tbody>
-          {% for line in res %}
-          <tr>
-            <td>{{line.0}}</td>
-            <td align="center">{{line.1.0.0}}</td>
-
-            <!-- Handle bonus rounds -->
-            {% if line.1.1.1 == 'b' %}
-              <td title="Bonus Round" align="center" style="background:lightgreen">{{line.1.1.0}}</td>
-            {% else %}
-              <td align="center">{{line.1.1.0}}</td>
-            {% endif %}
-
-            <td align="center">{{line.1.2.0}}</td>
-            <td align="center">{{line.1.3.0}}</td>
-            {% if line.1.4.1 == 'b' %}
-               <td title="Bonus Round" align="center" style="background:lightgreen">{{line.1.4.0}}</td>
-            {% else %}
-               <td align="center">{{line.1.4.0}}</td>
-            {% endif %}
-            <td align="center">{{line.1.5.0}}</td>
-            <td align="center">{{line.1.6.0}}</td>
-            <td align="center">{{line.1.7.0}}</td>
-            <td align="center">{{line.2 | playercheck:"Dave"}}</td>
-            <td align="center">{{line.2 | playercheck:"Suzy"}}</td>
-            <td align="center">{{line.2 | playercheck:"Jake"}}</td>
-            <td align="center">{{line.2 | playercheck:"Tim" }}</td>
-            <td align="center">{{line.2 | playercheck:"Ray"}}</td>
-            <td align="center">{{line.2 | playercheck:"Shane"}}</td>
-            <td align="center">{{line.2 | playercheck:"Jamie"}}</td>
-          </tr>
-          {% endfor %}
-         </tbody>
-         </table>
-       </div>
-      </div>
-    </div>
-    <div class="right">
-      <div class="leaderboard">
-        <h3 class="h3title">Leaderboard</h3>
-        <div class="table-responsive">          
-         <table class="table">
-         <thead>
-          <tr>
-            <th>#</th>
-            <th align="left">Player</th>
-            <th align="center">Points</th>
-            <th align="center">Rank</th>
-            <th align="center">Change</th>
-            <th align="center">Required</th>
-          </tr>
-          </thead>
-         <tbody>
-          {% for position in leaderboard %}
-          <tr>
-
-            <!-- Provide an Icon for rank change -->
-            {% if position.rankchange >= 1 %}
-              <td align="center"><img src="{% static 'img/up.png' %}" style="width:15px;height:15px;"/></td>
-            {% elif position.rankchange <= -1 %}
-              <td align="center"><img src="{% static 'img/dn.png' %}" style="width:15px;height:15px;"/></td>
-            {% else %}
-              <td align="center">-</td>
-            {% endif %}
-            
-            <!-- Add remaining fields -->
-            <td align="left">{{ position.player_name}}</td>
-            <td align="center">{{ position.accumulated | floatformat:"2" }}</td>
-            <td align="center">{{ position.tourrank }}</td>
-            <td align="center">{{ position.rankchange }}</td>
-            <td align="center">{{ position.requiredpoints }}</td>
-          </tr>
-          {% endfor %}
-         </tbody>     
-         </table>
+      </a>
+      <a href="{% url 'womenstour' femalesmaxevent %}">
+        <div class="index-content">
+          <img src="{% static 'img/girls.jpg' %}" style="width: auto; height: 300px;"/>
         </div>
-       </div>
-      <div class="badges">
-        <h3> Badges </h3>
-        <div class="badge-container">
-          <div class="singlebadge" style="background-image: url({% static 'img/loser-icon.png' %})" >
-          </div>
-          <div class="badge-info">LOWEST EVENT SCORE
-            <p style="font-size: 14px";>
-             {{ minbadge.player_name }}</br>
-             {{ minbadge.player_points | floatformat:"2" }}
-            </p>
-          </div>
-        </div>
-        <div class="badge-container">
-          <div class="singlebadge" style="background-image: url({% static 'img/winner-icon.jpg' %})" >
-          </div>
-          <div class="badge-info">HIGHEST EVENT SCORE
-            <p style="font-size: 14px";>
-             {{ maxbadge.player_name }}</br>
-             {{ maxbadge.player_points | floatformat:"2" }}          
-            </p>
-          </div>
-        </div>
-        <div class="badge-container">
-          <div class="singlebadge" style="background-image: url({% static 'img/one.jpg' %})" >
-          </div>
-          <div class="badge-info">MOST PICKED SURFER
-            <p style="font-size: 14px";>{{mps.0.0}} </br> {{mps.0.1  | floatformat:"2" }}%</p>
-          </div>
-        </div>
-        <div class="badge-container">
-          <div class="singlebadge" style="background-image: url({% static 'img/jersey.png' %})" >
-          </div>
-          <div class="badge-info">TOUR POINTS LEADER
-            <p style="font-size: 14px";>{{tourbadges.0.0}} <br/> {{tourbadges.0.1 | floatformat:"2" }}</p>
-          </div>
-        </div>
-        <div class="badge-container">
-          <div class="singlebadge" style="background-image: url({% static 'img/lemon.png' %})" >
-          </div>
-          <div class="badge-info">TOUR LEMON
-            <p style="font-size: 14px";>{{tourbadges.1.0}} <br/>  {{tourbadges.1.1 | floatformat:"2" }}</p>
-          </div>
-        </div>
-        <div class="badge-container">
-          <div class="singlebadge" style="background-image: url({% static 'img/avg.png' %})" >
-          </div>
-          <div class="badge-info">TOP AVG HT SCORE
-            <p style="font-size: 14px";>{{tourbadges.2.0}} <br/>  {{tourbadges.2.2 | floatformat:"2" }}</p>
-          </div>
-        </div>
+      </a>
+      <div class="index-title">
+        <h1 id="index-title">Fantasy Surf League</h1>
       </div>
     </div>
   </div>
-</div>
 </body>
 </html>   

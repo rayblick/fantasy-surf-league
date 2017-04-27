@@ -13,6 +13,7 @@ from django.db import models
 class FantasyLeaderBoard(models.Model):
     id = models.IntegerField(primary_key=True)
     event_id = models.IntegerField(blank=True, null=True)
+    sex = models.TextField(blank=True, null=True)
     player_name = models.TextField(blank=True, null=True)
     player_points = models.FloatField(blank=True, null=True)
     accumulated = models.FloatField(blank=True, null=True)
@@ -32,6 +33,7 @@ class FantasyPicks(models.Model):
     event_id = models.IntegerField(blank=True, null=True)
     event_name = models.TextField(blank=True, null=True)
     round_start_id = models.IntegerField(blank=True, null=True)
+    sex = models.TextField(blank=True, null=True)
     surfer_name = models.TextField(blank=True, null=True)
 
     class Meta:
@@ -45,6 +47,7 @@ class FantasyPointsTable(models.Model):
     event_id = models.IntegerField(blank=True, null=True)
     round_id = models.IntegerField(blank=True, null=True)
     bonusflag = models.TextField(blank=True, null=True)
+    sex = models.TextField(blank=True, null=True)
     surfer_name = models.TextField(blank=True, null=True)
     total = models.FloatField(blank=True, null=True)
 

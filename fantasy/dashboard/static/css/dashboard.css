@@ -1,3 +1,28 @@
+.index-content{
+  width: 50%;
+  float: left;
+  vertical-align: middle;
+  text-align: center;
+}
+
+.index-title{
+  text-align: center;
+  width: 100%;  
+}
+.main-content{
+  padding-top: 10%;
+  width: 800px;
+  margin: auto;
+}
+
+
+h1#index-title{
+  float: left;
+  width: 100%; 
+  font-family: Serif;
+  font-size: 3.6em;
+}
+
 .stop-image-future, .stop-image{
   width: 56px;
   height: 56px;
@@ -39,7 +64,6 @@
   width: 1200px;
   height: 620px;
   margin: auto;
-  margin-left: 5%;
 }
 
 .content {
