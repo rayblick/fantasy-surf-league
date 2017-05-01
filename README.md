@@ -1,35 +1,35 @@
 # Surf Fantasy Dashboard
- 
-Alternative documentation format found [here](https://rawgit.com/rayblick/fantasy-surf-league/docs/_build/html/README.html).
+
+Alternative documentation format found [here](rayblick.github.io/fantasy-surf-league/README).
 
 ## Aim
-The world surf league runs a fantasy sports competition that myself and friends play (players). The existing information available on web and mobile apps are limited. Therefore, the aim of this project is to create a dashboard to more effectively track the changes that occur between events. 
+The world surf league runs a fantasy sports competition that myself and friends play (players). The existing information available on web and mobile apps are limited. Therefore, the aim of this project is to create a dashboard to more effectively track the changes that occur between events.
 
 ## Scope
 + Mens competition
-+ "Fixed" html page showing current results for the fantasy surf competition 
-+ Allow players to select previous tour "stops" to see previous results 
-+ Deploy application in a publically accessible location 
-+ Use bootstrap CSS styling 
-+ Test the points/results for consistency with the official app 
++ "Fixed" html page showing current results for the fantasy surf competition
++ Allow players to select previous tour "stops" to see previous results
++ Deploy application in a publically accessible location
++ Use bootstrap CSS styling
++ Test the points/results for consistency with the official app
 
 ## Out of Scope
 + Webcrawler to extract data
 + Mobile friendly pages
-+ Login security 
-+ User sign-in 
++ Login security
++ User sign-in
 + Administrative privileges
 + Reactive figures (e.g. D3.js)
 + Realtime updates during events
-+ Displaying results for other teams 
++ Displaying results for other teams
 + Comments for player interaction
-+ Social media interaction 
++ Social media interaction
 + Displaying results from previous years
 + Displaying a full listing of surfer results
 + Popups and modals for additional info
 
 ## Assumptions   
-+ The number of page views will not exceed a free account to deploy 
++ The number of page views will not exceed a free account to deploy
 
 ## Time
 + 45 hours (3 hour blocks over 15 nights while the baby is sleeping)
@@ -37,7 +37,7 @@ The world surf league runs a fantasy sports competition that myself and friends 
 ## Status
 Complete
 
-## Contributors 
+## Contributors
 + Ray Blick
 
 
@@ -223,7 +223,7 @@ INSERT INTO FantasyPicks
        ON events.event_id = picks.event_id;
 ```
 
-### Creating "VIEW" to handle bonus rounds 
+### Creating "VIEW" to handle bonus rounds
 ```sql
 DROP VIEW MaxBonusRound;
 CREATE VIEW MaxBonusRound as
@@ -286,8 +286,8 @@ CREATE TABLE FantasyPlayerScore (
                     player_points REAL);
 
 /* Note the join to picks fact and player dim */
-/* A key part of this sql statement is the round id join on 
-round_start_id - this ensures that players dont get points for 
+/* A key part of this sql statement is the round id join on
+round_start_id - this ensures that players dont get points for
 late picks */
 
 INSERT INTO FantasyPlayerScore
@@ -308,7 +308,7 @@ INSERT INTO FantasyPlayerScore
 
 ### Add Running Totals to the Leaderboard
 ```sql
-/* Joining on player_name and all event id's groups the 
+/* Joining on player_name and all event id's groups the
 data to generate running totals */
 DROP VIEW FantasyPlayerRunningTotals;
 CREATE VIEW FantasyPlayerRunningTotals AS
@@ -391,7 +391,7 @@ SELECT * FROM FantasyPointsTable;
 SELECT * FROM FantasyLeaderBoard;
 ```
 
-## Dashboard 
+## Dashboard
 The dashboard was created using Django and deployed on Pythonanywhere.com. Basic HTML and CSS syntax in this dashboard are not covered in this documentation.
 
 **Requirements:**
@@ -406,11 +406,11 @@ The template for this dashboard started with pen to paper before collecting data
 The final design has four main features:
 1. Information area (e.g current event)
 2. Leaderboard (e.g player rank and position change)
-3. Badges (e.g. lowest/highest points per event) 
+3. Badges (e.g. lowest/highest points per event)
 4. Picks board (i.e. surfers, results, and selections by players)
 
 ### Create Django Project and App
-Refer to https://docs.djangoproject.com/en/1.11/intro/tutorial01/ for help. 
+Refer to https://docs.djangoproject.com/en/1.11/intro/tutorial01/ for help.
 ```bash
 django-admin startproject fantasy
 python3.4 manage.py startapp dashboard
@@ -435,8 +435,8 @@ DATABASES = {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     },
-    # this is the new db 
-    'fantasydb': { 
+    # this is the new db
+    'fantasydb': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': os.path.join(BASE_DIR, 'fantasydb'),
         'USER': '',
@@ -473,7 +473,7 @@ python3.4 manage.py migrate
 ```
 
 ### Added Project Directories
-New directories were created inside the dashboard app to store html pages, styling sheets and template filters. 
+New directories were created inside the dashboard app to store html pages, styling sheets and template filters.
 
 ```
 fantasy
@@ -484,10 +484,10 @@ fantasy
 │   ├── models.py
 │   │
 │   ├── static #New
-│   │   ├── css 
+│   │   ├── css
 │   │   │   └── dashboard.css
 │   │   │
-│   │   └── img 
+│   │   └── img
 │   │       ├── images.png
 │   │       .
 │   │
@@ -507,9 +507,9 @@ fantasy
 ```
 
 ### Modifying views.py to Access Querysets
-The dashboard has four main areas that displays different data in different structures (e.g. querysets, dicts, lists). 
+The dashboard has four main areas that displays different data in different structures (e.g. querysets, dicts, lists).
 
-#### views.py 
+#### views.py
 ```python
 from django.shortcuts import render
 from django.db.models import Max, Min, Sum, Avg
@@ -538,14 +538,14 @@ def championshiptour(request, eventid):
 
 ### User Interface
 
-The dashboard contains four main areas each requiring a different set of data. The four areas (clockwise from top left) include 1) event selection buttons, 2) leaderboard, 3) badges, and 4) surfer selections and results. All of the required information to generate these areas of the dashboard are passed from the "context" dictionary in views.py. 
+The dashboard contains four main areas each requiring a different set of data. The four areas (clockwise from top left) include 1) event selection buttons, 2) leaderboard, 3) badges, and 4) surfer selections and results. All of the required information to generate these areas of the dashboard are passed from the "context" dictionary in views.py.
 
 Most of the information is reduced to a list or dictionary. However, I have transformed the data in two ways. First, the leaderboard is reduced to the required data before it reaches the Django app, and second, the surfer selection and results area is entirely processed in views.py. The data processing has occurred this way because I already had a vision of what the leaderboard should look like, but the selection area required a little prototyping in building the html layout before I knew what it should look like. Unless I get complaints about performance issues then this method of processing these data will stay as it is.   
 
 
 ![Screen shot](fantasy/dashboard/static/img/screenshot.png "Screen shot")
 
-I used a variety of ways to pass data across to the webpage. I will cover them here as a reference for later. 
+I used a variety of ways to pass data across to the webpage. I will cover them here as a reference for later.
 
 #### QUERYSET
 
@@ -611,7 +611,7 @@ def championshiptour(request, eventid):
 
 #### LIST
 
-A "list" or in many of my cases a "list of lists" was a common method that I used to pass grouped information processed in views.py. Here dot notation is used but the values are called as positions. For example, imagine that you pass myList=[[1,2],[3,4]] to the page, you can access the last position of the second list by typing myList.1.1 (zero indexing). 
+A "list" or in many of my cases a "list of lists" was a common method that I used to pass grouped information processed in views.py. Here dot notation is used but the values are called as positions. For example, imagine that you pass myList=[[1,2],[3,4]] to the page, you can access the last position of the second list by typing myList.1.1 (zero indexing).
 
 **views.py**  
 
@@ -657,7 +657,7 @@ def championshiptour(request, eventid):
         {% endif %}
 
         <!-- more processing of the list of lists....-->
-    
+
     </tr>
 {% endfor %}
 ```
@@ -698,18 +698,18 @@ def championshiptour(request, eventid):
 
 ### Updating Requirements
 
-This project has a manual data entry component. It takes about 30 mins to enter the new records (Fantasy team of 7 players picking 8 surfers). It is important that the names of the surfers match in each csv file. I decided against using an ID key for surfer names because it took longer from continuously double checking my entries, and the convienience of tab completion helped to spot errors immediately. 
+This project has a manual data entry component. It takes about 30 mins to enter the new records (Fantasy team of 7 players picking 8 surfers). It is important that the names of the surfers match in each csv file. I decided against using an ID key for surfer names because it took longer from continuously double checking my entries, and the convienience of tab completion helped to spot errors immediately.
 
 #### Development
 
-+ Add new data to the csv files (.data/) 
-+ Run the sqlite fantasy DB ($> sqlite fantasydb) 
++ Add new data to the csv files (.data/)
++ Run the sqlite fantasy DB ($> sqlite fantasydb)
 + Rerun the entire sql script (.db/DB_CREATOR.txt)  
 + Copy new DB across to the Django project  
 + Test that the scores match/check typos etc   
-+ Modify HTML to include the event selection buttons 
-+ Update development log if changes are made 
-+ git push all changes to github 
++ Modify HTML to include the event selection buttons
++ Update development log if changes are made
++ git push all changes to github
 
 
 #### Production
@@ -728,7 +728,7 @@ nano .gitignore
 # add secret key to file (e.g. fantasy/secret_key.txt)
 
 nano fantasy/secret_key.txt
-# update in the next step 
+# update in the next step
 ```
 
 #### Changes in settings.py
@@ -740,7 +740,7 @@ with open(os.path.join(BASE_DIR, 'secret_key.txt')) as f:
 SECRET_KEY = f.read().strip()
 
 # SECURITY WARNING: don't run with debug turned on in production!
-#DEBUG = True 
+#DEBUG = True
 # Use DEBUG = True in local development
 DEBUG = False
 # Use DEBUG = False turns off static files mapping
@@ -755,13 +755,13 @@ Follow signup instructions at https://www.pythonanywhere.com
 
 #### Clone project repo
 
-- Navigate to "Consoles tab" 
-- Navigate to "Start a new console" section 
-- Select "Bash" console and clone repo 
-- Create secret_key.txt in production 
+- Navigate to "Consoles tab"
+- Navigate to "Start a new console" section
+- Select "Bash" console and clone repo
+- Create secret_key.txt in production
 
 ```bash
-git clone https://github.com/rayblick/fantasy-surf-league.git 
+git clone https://github.com/rayblick/fantasy-surf-league.git
 ```
 
 #### Pythonanywhere virtualenv (Django install)
@@ -771,16 +771,15 @@ $ mkvirtualenv --python=/usr/bin/python3.5 fantasy
 (fantasy)$ pip install django
 ```
 
-#### Static mapping 
+#### Static mapping
 
-- Navigate to Web tab 
-- Navigate to static files 
-- Keep the URL as /static/ 
-- Add the dashboard directory 
-    - /home/ray/fantasy-surf-league/fantasy/dashboard/static/ 
+- Navigate to Web tab
+- Navigate to static files
+- Keep the URL as /static/
+- Add the dashboard directory
+    - /home/ray/fantasy-surf-league/fantasy/dashboard/static/
 
 
 #### Pull any changes
 
 Last step is to pull in any changes from development. I am not making changes on Pythonanywhere.com.
-
