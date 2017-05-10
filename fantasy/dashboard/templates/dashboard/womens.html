@@ -46,7 +46,15 @@
           </a>
         {% endif %}
 
-        <div class="stop-image-future">4</div>
+        <!-- Event 4 -->
+        {% if eventid == "4" %}
+          <div class="stop-image" style="background: rgb(245, 222, 0)">4</div>
+        {% else %}
+          <a href="{% url 'womenstour' '4' %}">
+            <div class="stop-image">4</div>
+          </a>
+        {% endif %}
+
         <div class="stop-image-future">5</div>
         <div class="stop-image-future">6</div>
         <div class="stop-image-future">7</div>
