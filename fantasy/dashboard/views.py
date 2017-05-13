@@ -101,7 +101,7 @@ def menstour(request, eventid):
 
     # count each surfer in picks           
     for s in list(picks_surfers):
-        mps = [s, (list(surferlist).count(s)/numselections)*100]
+        mps = [s, round(list(surferlist).count(s)/float(numselections),2)*100]
         mostpickedsurfer.append(mps)
 
     # sort function
@@ -111,17 +111,18 @@ def menstour(request, eventid):
     # sort
     mps = sorted(mostpickedsurfer, key=SortByMaxPoints, reverse=True)
 
+
     # Min event points filter
     # This works because the lowest event score is held in the leaderboard
     # NB event totals are not shown in the leaderboard on the dashboard
     minpoints = leaderboard.aggregate(my_min=Min('player_points'))
     minbadge = FantasyLeaderBoard.objects.using('fantasydb').get(
-                   player_points=str(minpoints['my_min']))
+                   player_points=minpoints['my_min'])
     
     # highest points
     maxpoints = leaderboard.aggregate(my_max=Max('player_points'))
     maxbadge = FantasyLeaderBoard.objects.using('fantasydb').get(
-                   player_points=str(maxpoints['my_max']))
+                   player_points=maxpoints['my_max'])
     
     # create surfer list (from the points table)
     points_surfers = FantasyPointsTable.objects.using(
@@ -145,7 +146,7 @@ def menstour(request, eventid):
     tourleader = sortedbadgeholder[0]
 
     # Tour lemon
-    tourlemon = sortedbadgeholder[-1]
+    tourlemon = [x for x in sortedbadgeholder if x[1] != 0.0][-1]        
 
     # Top avg heat scores
     def SortByAvgHeat(elem):
@@ -254,7 +255,7 @@ def womenstour(request, eventid):
 
     # count each surfer in picks           
     for s in list(picks_surfers):
-        mps = [s, (list(surferlist).count(s)/numselections)*100]
+        mps = [s, round(list(surferlist).count(s)/float(numselections),2)*100]
         mostpickedsurfer.append(mps)
 
     # sort function
@@ -269,12 +270,12 @@ def womenstour(request, eventid):
     # NB event totals are not shown in the leaderboard on the dashboard
     minpoints = leaderboard.aggregate(my_min=Min('player_points'))
     minbadge = FantasyLeaderBoard.objects.using('fantasydb').get(
-                   player_points=str(minpoints['my_min']))
+                   player_points=minpoints['my_min'])
     
     # highest points
     maxpoints = leaderboard.aggregate(my_max=Max('player_points'))
     maxbadge = FantasyLeaderBoard.objects.using('fantasydb').get(
-                   player_points=str(maxpoints['my_max']))
+                   player_points=maxpoints['my_max'])
     
     # create surfer list (from the points table)
     points_surfers = FantasyPointsTable.objects.using(
@@ -298,7 +299,7 @@ def womenstour(request, eventid):
     tourleader = sortedbadgeholder[0]
 
     # Tour lemon
-    tourlemon = sortedbadgeholder[-1]
+    tourlemon = [x for x in sortedbadgeholder if x[1] != 0.0][-1]    
 
     # Top avg heat scores
     def SortByAvgHeat(elem):

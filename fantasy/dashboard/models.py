@@ -54,3 +54,23 @@ class FantasyPointsTable(models.Model):
     class Meta:
         managed = False
         db_table = 'FantasyPointsTable'
+
+
+class PointsSpread(models.Model):
+    id = models.IntegerField(primary_key=True)
+    surfer_name = models.TextField(blank=True, null=True)
+    event_id = models.IntegerField(blank=True, null=True)
+    tourpoints = models.IntegerField(blank=True, null=True)
+    tourfantasypoints = models.FloatField(blank=True, null=True)
+    lasteventfantasypoints = models.FloatField(blank=True, null=True)
+    tourmaxheatscore = models.FloatField(blank=True, null=True)
+    lasteventmaxheatscore = models.FloatField(blank=True, null=True)
+
+    class Meta:
+        managed = False
+        db_table = 'pointsspread'
+
+
+
+
+
