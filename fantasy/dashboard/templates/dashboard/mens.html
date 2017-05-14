@@ -222,6 +222,144 @@
         </div>
       </div>
     </div>
+    <div class="title">
+      <h3> Top 8 points spread </h3>
+    </div>
+    <div class="bottom-area">
+          <div class="ranking">
+            <h5>Competition Points</h5>
+            <div class="rankleader-image" style="background-image: url({% static 'img/avatar.png' %})">
+            </div>
+            <div class="table-responsive">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <td>
+                    </td>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for line in pointspread_tourpoints %}
+                  <tr> 
+                     <td>{{line.surfer_name}} ({{line.tourpoints}})</td>
+                  </tr>
+                  {% endfor %}
+                </tbody>     
+              </table>
+            </div>
+          </div>
+          <div class="ranking">
+            <h5>Total Fantasy Points</h5>
+            <div class="rankleader-image" style="background-image: url({% static 'img/avatar.png' %})">
+            </div>
+            <div class="table-responsive">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <td>
+                    </td>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for line in pointspread_fantasypoints %}
+                  <tr> 
+                     <td>{{line.surfer_name}} ({{line.fantasypoints | floatformat:"2"}})</td>
+                  </tr>
+                  {% endfor %}
+                </tbody>     
+              </table>
+            </div>
+          </div>
+          <div class="ranking">
+            <h5>Max Heat Score</h5>
+            <div class="rankleader-image" style="background-image: url({% static 'img/avatar.png' %})">
+            </div>
+            <div class="table-responsive">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <td>
+                    </td>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for line in pointspread_tourmaxheatscore %}
+                  <tr> 
+                     <td>{{line.surfer_name}} ({{line.tourmaxheatscore | floatformat:"2"}})</td>
+                  </tr>
+                  {% endfor %}
+                </tbody>     
+              </table>
+            </div>
+          </div>
+          <div class="ranking">
+            <h5>Last Event Fantasy Points</h5>
+            <div class="rankleader-image" style="background-image: url({% static 'img/avatar.png' %})">
+            </div>
+            <div class="table-responsive">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <td>
+                    </td>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for line in pointspread_lasteventfantasypoints %}
+                  <tr> 
+                     <td>{{line.surfer_name}} ({{line.lasteventfantasypoints | floatformat:"2"}})</td>
+                  </tr>
+                  {% endfor %}
+                </tbody>     
+              </table>
+            </div>
+          </div>
+          <div class="ranking">
+            <h5>Last Event Max Heat Score</h5>
+            <div class="rankleader-image" style="background-image: url({% static 'img/avatar.png' %})">
+            </div>
+            <div class="table-responsive">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <td>
+                    </td>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for line in pointspread_lasteventmaxheatscore %}
+                  <tr> 
+                     <td>{{line.surfer_name}} ({{line.lasteventmaxheatscore | floatformat:"2"}})</td>
+                  </tr>
+                  {% endfor %}
+                </tbody>     
+              </table>
+            </div>
+          </div>
+          <div class="ranking">
+            <h5>Results</h5>
+            <div class="rankleader-image" style="background-image: url({% static 'img/avatar.png' %})">
+            </div>
+            <div class="table-responsive">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <td>
+                    </td>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for line in pointspread_results %}
+                  <tr> 
+                     <td>{{line.surfer_name}} ({{line.results | floatformat:"2"}})</td>
+                  </tr>
+                  {% endfor %}
+                </tbody>     
+              </table>
+            </div>
+          </div>
+      </div>
+    </div>
   </div>
 </div>
 </body>

@@ -62,8 +62,9 @@ h1#index-title{
 
 .main {
   width: 1200px;
-  height: 620px;
+  height: 900px;
   margin: auto;
+  margin-left: 4%;
 }
 
 .content {
@@ -77,7 +78,7 @@ h1#index-title{
 
 .left {
   width: 60%; 
-  height: 100%;
+  height: 66%;
   float: left;
   margin-right:2%;
 }
@@ -111,13 +112,13 @@ h1#index-title{
 
 .right {
   width: 32%; 
-  height: 100%;
+  height: 66%;
   float: left;
   margin-left: 4%;
 }
 .leaderboard {
   width: 100%; 
-  height: 38%;
+  height: 240px;
 }
 .badges {
   width: 100%; 
@@ -143,4 +144,31 @@ h1#index-title{
   background-position:center;
 }
 
+.bottom-area {
+  width: 100%; 
+  height: 42%;
+  float: left; 
+  padding: 1%; 
+  margin-bottom: 2%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.ranking {
+  width: 180px;
+  height: 100%;
+  background: lightgrey; 
+  float: left;
+  display: inline-block;
+  text-align: center;
+}
+
+.rankleader-image {
+  width: 80px;
+  height: 80px;
+  margin: auto;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position:center;
+}
 

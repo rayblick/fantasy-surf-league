@@ -400,28 +400,30 @@ AND tp.tourpoints_sex = ef.sex;
 DROP TABLE IF EXISTS pointsspread;
 CREATE TABLE pointsspread(id INTEGER PRIMARY KEY AUTOINCREMENT,
                         surfer_name TEXT,
+                        sex TEXT,
                         event_id INTEGER,
                         tourpoints INTEGER,
                         fantasypoints REAL,
                         lasteventfantasypoints REAL,
                         tourmaxheatscore REAL,
-                        lasteventmaxheatscore REAL
+                        lasteventmaxheatscore REAL,
+                        results REAL
                         );
 
 
 /* INSERT THE RANKINGS DATA */
 INSERT INTO pointsspread
-     (surfer_name, event_id, tourpoints, fantasypoints,
+     (surfer_name, sex, event_id, tourpoints, fantasypoints,
       lasteventfantasypoints,tourmaxheatscore,
-      lasteventmaxheatscore)
+      lasteventmaxheatscore, results)
 
 /* SELECT QUERY TO CREATE RANKINGS TABLE */ 
-SELECT p1.surfer_name, p1.event_id, p1.tourpoints, p2.tourfantasypoints, p3.lasteventfantasypoints, p4.tourmaxheatscore, p5.lasteventmaxheatscore
+SELECT p1.surfer_name, p1.sex, p1.event_id, p1.tourpoints, p2.tourfantasypoints, p3.lasteventfantasypoints, p4.tourmaxheatscore, p5.lasteventmaxheatscore, p6.results
 FROM (
 
 /* Get tour points for all events prior to 
 the one of interest */
-SELECT  DISTINCT(p1.surfer_name), p1.event_id, 
+SELECT  DISTINCT(p1.surfer_name),p1.sex, p1.event_id, 
         (SELECT sum(tourpoints_points)
         FROM totaltourpoints as ttp
         WHERE ttp.event_id < p1.event_id
@@ -508,7 +510,20 @@ SELECT  DISTINCT(p1.surfer_name), p1.event_id,
 
 /* Join condition */
 ON p1.surfer_name = p5.surfer_name
-AND p1.event_id = p5.event_id;
+AND p1.event_id = p5.event_id
+
+/* join */
+LEFT JOIN (
+
+/* Current results */
+SELECT  surfer_name, event_id, sum(total) as results
+        FROM fantasypointstable 
+        GROUP BY surfer_name, event_id
+) AS p6
+
+/* Join condition */
+ON p1.surfer_name = p6.surfer_name
+AND p1.event_id = p6.event_id;
 
 
 /* Drops */

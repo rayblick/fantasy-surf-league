@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.db.models import Max, Min, Sum, Avg
-from .models import FantasyPicks, FantasyPointsTable, FantasyLeaderBoard
+from .models import FantasyPicks, FantasyPointsTable, FantasyLeaderBoard, PointsSpread
 from .forms import EventsForm
 
 
@@ -161,6 +161,22 @@ def menstour(request, eventid):
     # consolidate results
     tourbadges = [tourleader, tourlemon, heatleader]
 
+    # point spread
+    spread = PointsSpread.objects.using('fantasydb').filter(sex='m').filter(
+        event_id=str(eventid))
+    pointspread_tourpoints = spread.values('surfer_name', 'tourpoints').order_by(
+        '-tourpoints','surfer_name')[0:8]
+    pointspread_fantasypoints = spread.values('surfer_name', 'fantasypoints').order_by(
+        '-fantasypoints','surfer_name')[0:8]
+    pointspread_lasteventfantasypoints = spread.values('surfer_name',
+        'lasteventfantasypoints').order_by('-lasteventfantasypoints','surfer_name')[0:8]
+    pointspread_tourmaxheatscore = spread.values('surfer_name', 
+        'tourmaxheatscore').order_by('-tourmaxheatscore','surfer_name')[0:8]
+    pointspread_lasteventmaxheatscore = spread.values('surfer_name',
+        'lasteventmaxheatscore').order_by('-lasteventmaxheatscore','surfer_name')[0:8]
+    pointspread_results = spread.values('surfer_name',
+        'results').order_by('-results','surfer_name')[0:8]
+
     # build context
     context = {'leaderboard':leaderboard, 
                'picks':picks, 
@@ -170,7 +186,13 @@ def menstour(request, eventid):
                'maxbadge':maxbadge,
                'tourbadges':tourbadges,
                'mps':mps,
-               'eventid':eventid}
+               'eventid':eventid,
+               'pointspread_tourpoints':pointspread_tourpoints,
+               'pointspread_fantasypoints':pointspread_fantasypoints,
+               'pointspread_tourmaxheatscore':pointspread_tourmaxheatscore,
+               'pointspread_lasteventfantasypoints':pointspread_lasteventfantasypoints,
+               'pointspread_lasteventmaxheatscore':pointspread_lasteventmaxheatscore,
+               'pointspread_results':pointspread_results}
 
     # render page
     return render(request, 'dashboard/mens.html', context)
@@ -314,6 +336,22 @@ def womenstour(request, eventid):
     # consolidate results
     tourbadges = [tourleader, tourlemon, heatleader]
 
+    # point spread
+    spread = PointsSpread.objects.using('fantasydb').filter(sex='f').filter(
+        event_id=str(eventid))
+    pointspread_tourpoints = spread.values('surfer_name', 'tourpoints').order_by(
+        '-tourpoints','surfer_name')[0:8]
+    pointspread_fantasypoints = spread.values('surfer_name', 'fantasypoints').order_by(
+        '-fantasypoints','surfer_name')[0:8]
+    pointspread_lasteventfantasypoints = spread.values('surfer_name',
+        'lasteventfantasypoints').order_by('-lasteventfantasypoints','surfer_name')[0:8]
+    pointspread_tourmaxheatscore = spread.values('surfer_name', 
+        'tourmaxheatscore').order_by('-tourmaxheatscore','surfer_name')[0:8]
+    pointspread_lasteventmaxheatscore = spread.values('surfer_name',
+        'lasteventmaxheatscore').order_by('-lasteventmaxheatscore','surfer_name')[0:8]
+    pointspread_results = spread.values('surfer_name',
+        'results').order_by('-results','surfer_name')[0:8]
+
     # build context
     context = {'leaderboard':leaderboard, 
                'picks':picks, 
@@ -323,7 +361,14 @@ def womenstour(request, eventid):
                'maxbadge':maxbadge,
                'tourbadges':tourbadges,
                'mps':mps,
-               'eventid':eventid}
+               'eventid':eventid,
+               'pointspread_tourpoints':pointspread_tourpoints,
+               'pointspread_fantasypoints':pointspread_fantasypoints,
+               'pointspread_tourmaxheatscore':pointspread_tourmaxheatscore,
+               'pointspread_lasteventfantasypoints':pointspread_lasteventfantasypoints,
+               'pointspread_lasteventmaxheatscore':pointspread_lasteventmaxheatscore,
+               'pointspread_results':pointspread_results}
+
 
     # render page
     return render(request, 'dashboard/womens.html', context)

@@ -29,7 +29,7 @@ DEBUG = True
 #DEBUG = False
 # Using DEBUG = False turns off static files mapping
 
-ALLOWED_HOSTS = ['rayblick.pythonanywhere.com']
+ALLOWED_HOSTS = ['rayblick.pythonanywhere.com', '127.0.0.1']
 
 
 # Application definition
