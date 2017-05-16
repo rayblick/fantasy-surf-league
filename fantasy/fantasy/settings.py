@@ -24,9 +24,9 @@ with open(os.path.join(BASE_DIR, 'secret_key.txt')) as f:
     SECRET_KEY = f.read().strip()
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True     
+#DEBUG = True     
 # Use DEBUG = True in local development
-#DEBUG = False
+DEBUG = False
 # Using DEBUG = False turns off static files mapping
 
 ALLOWED_HOSTS = ['rayblick.pythonanywhere.com', '127.0.0.1']
