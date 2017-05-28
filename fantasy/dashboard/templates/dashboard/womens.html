@@ -10,47 +10,50 @@
 <div class="main">
   <div class="title">
     <h3> Fantasy Surf League  
-      <a href="{% url 'menstour' eventid %}">mens</a> 
-      <a href="{% url 'womenstour' eventid %}">womens</a>
+      <a href="{% url 'menstour' year stopnumber %}">mens</a> 
+      <a href="{% url 'womenstour' year stopnumber %}">womens</a>
+      <select id="courseselect" onchange="location = this.options[this.selectedIndex].value;">
+        <option value="{% url 'womenstour' year stopnumber%}" selected={{year}}>{{year}}
+      </select>
     </h3> 
   </div>
   <div class="content">
     <div class="left">
       <div class="stops">
         <!-- Event 1-->
-        {% if eventid == "1" %}
+        {% if stopnumber == "1" %}
           <div class="stop-image" style="background: rgb(245, 222, 0)">
             1
           </div>
         {% else %}
-          <a href="{% url 'womenstour' '1' %}">
+          <a href="{% url 'womenstour' year '1' %}">
             <div class="stop-image">1</div>
           </a>
         {% endif %}
 
         <!-- Event 2-->
-        {% if eventid == "2" %}
+        {% if stopnumber == "2" %}
           <div class="stop-image" style="background: rgb(245, 222, 0)">2</div>
         {% else %}
-          <a href="{% url 'womenstour' '2' %}">
+          <a href="{% url 'womenstour' year '2' %}">
             <div class="stop-image">2</div>
           </a>
         {% endif %}
 
         <!-- Event 3 -->
-        {% if eventid == "3" %}
+        {% if stopnumber == "3" %}
           <div class="stop-image" style="background: rgb(245, 222, 0)">3</div>
         {% else %}
-          <a href="{% url 'womenstour' '3' %}">
+          <a href="{% url 'womenstour' year '3' %}">
             <div class="stop-image">3</div>
           </a>
         {% endif %}
 
         <!-- Event 4 -->
-        {% if eventid == "4" %}
+        {% if stopnumber == "4" %}
           <div class="stop-image" style="background: rgb(245, 222, 0)">4</div>
         {% else %}
-          <a href="{% url 'womenstour' '4' %}">
+          <a href="{% url 'womenstour' year '4' %}">
             <div class="stop-image">4</div>
           </a>
         {% endif %}

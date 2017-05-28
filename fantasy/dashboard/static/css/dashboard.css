@@ -156,7 +156,7 @@ h1#index-title{
 .ranking {
   width: 180px;
   height: 100%;
-  background: lightgrey; 
+  /*background: lightgrey;*/ 
   float: left;
   display: inline-block;
   text-align: center;

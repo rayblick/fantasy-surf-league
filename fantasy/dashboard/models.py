@@ -12,6 +12,8 @@ from django.db import models
 
 class FantasyLeaderBoard(models.Model):
     id = models.IntegerField(primary_key=True)
+    year = models.IntegerField()
+    stop_number = models.IntegerField()
     event_id = models.IntegerField(blank=True, null=True)
     sex = models.TextField(blank=True, null=True)
     player_name = models.TextField(blank=True, null=True)
@@ -30,6 +32,8 @@ class FantasyLeaderBoard(models.Model):
 class FantasyPicks(models.Model):
     id = models.IntegerField(primary_key=True)
     player_name = models.TextField(blank=True, null=True)
+    year = models.IntegerField()
+    stop_number = models.IntegerField()
     event_id = models.IntegerField(blank=True, null=True)
     event_name = models.TextField(blank=True, null=True)
     round_start_id = models.IntegerField(blank=True, null=True)
@@ -44,6 +48,8 @@ class FantasyPicks(models.Model):
 class FantasyPointsTable(models.Model):
     id = models.IntegerField(primary_key=True)
     #points_id = models.IntegerField(blank=True, null=True)
+    year = models.IntegerField()
+    stop_number = models.IntegerField()
     event_id = models.IntegerField(blank=True, null=True)
     round_id = models.IntegerField(blank=True, null=True)
     bonusflag = models.TextField(blank=True, null=True)
@@ -58,6 +64,8 @@ class FantasyPointsTable(models.Model):
 
 class PointsSpread(models.Model):
     id = models.IntegerField(primary_key=True)
+    year = models.IntegerField()
+    stop_number = models.IntegerField()
     surfer_name = models.TextField(blank=True, null=True)
     sex = models.TextField(blank=True, null=True)
     event_id = models.IntegerField(blank=True, null=True)

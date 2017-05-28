@@ -8,12 +8,12 @@ def index(request):
     """
     Sends the user to the most recent events page.
     """
-    # get max event id
+    # get max event id (changed to stop_number)
     malesmaxevent = FantasyLeaderBoard.objects.using(
-      'fantasydb').filter(sex='m').aggregate(em=Max('event_id'))['em']
+      'fantasydb').filter(sex='m').aggregate(em=Max('stop_number'))['em']
     # females
     femalesmaxevent = FantasyLeaderBoard.objects.using(
-      'fantasydb').filter(sex='f').aggregate(em=Max('event_id'))['em']
+      'fantasydb').filter(sex='f').aggregate(em=Max('stop_number'))['em']
     # set context
     context = {'malesmaxevent': malesmaxevent, 
                'femalesmaxevent': femalesmaxevent} 
@@ -21,17 +21,19 @@ def index(request):
     return render(request, 'dashboard/index.html', context)
 
 
-
-def menstour(request, eventid):
+# eventid has been changed to "stop_number"
+def menstour(request, year, stopnumber):
     # Filter leaderboard 
     # The leaderboard is already structured in such a 
     # way that the table can be filtered on event id  
     leaderboard = FantasyLeaderBoard.objects.using(
-      'fantasydb').filter(event_id=str(eventid)).filter(sex='m')
+      'fantasydb').filter(year=str(year)).filter(
+      stop_number=str(stopnumber)).filter(sex='m')
 
     # filter picks table by event id 
     picks = FantasyPicks.objects.using(
-      'fantasydb').filter(event_id=str(eventid)).filter(sex='m')
+      'fantasydb').filter(year=str(year)).filter(
+      stop_number=str(stopnumber)).filter(sex='m')
 
    # collect list of distinct surfers (from the picks table)
     picks_surfers = picks.values_list('surfer_name',flat=True).distinct()
@@ -39,9 +41,10 @@ def menstour(request, eventid):
     # filter points table by event id
     # Further processing is required because the points table needs to be 
     # ordered correctly and rearranged into wide format
-    points = FantasyPointsTable.objects.using('fantasydb').filter(sex='m').filter(
-      event_id=str(eventid)).filter(surfer_name__in=picks_surfers).order_by(
-      'surfer_name', 'round_id')
+    points = FantasyPointsTable.objects.using(
+      'fantasydb').filter(year=str(year)).filter(
+      stop_number=str(stopnumber)).filter(sex='m').filter(
+      surfer_name__in=picks_surfers).order_by('surfer_name', 'round_id')
 
     # Process points and picks to generate list of lists
     # list 1: surfer name
@@ -80,13 +83,14 @@ def menstour(request, eventid):
     # Get event information for the summary section
     # Note that the picks table has been filtered on event id 
     # passed in using the url so calling distinct should return only
-    # one event name
+    # one event name (updated to filter on stop_number - but event_name
+    # should still be ok)
     eventname = picks.values_list('event_name',flat=True).distinct()
 
     # BADGES SECTION   
     # Count surfer picks (total across all events) - this is a badge 
-    allpicks = FantasyPicks.objects.using('fantasydb').filter(
-        event_id__lte=str(eventid)).filter(sex='m')
+    allpicks = FantasyPicks.objects.using('fantasydb').filter(year=str(year)).filter(
+        stop_number__lte=str(stopnumber)).filter(sex='m')
 
     # Collect surfer names to loop over next
     surferlist = allpicks.values_list('surfer_name',flat=True)
@@ -116,28 +120,38 @@ def menstour(request, eventid):
     # This works because the lowest event score is held in the leaderboard
     # NB event totals are not shown in the leaderboard on the dashboard
     minpoints = leaderboard.aggregate(my_min=Min('player_points'))
-    minbadge = FantasyLeaderBoard.objects.using('fantasydb').get(
-                   player_points=minpoints['my_min'])
-    
+    try:
+        minbadge = FantasyLeaderBoard.objects.using(
+          'fantasydb').filter(year=str(year)).filter(
+          stop_number=str(stopnumber)).filter(sex='m').get(
+          player_points=minpoints['my_min'])
+    except:
+        minbadge = None
+
     # highest points
     maxpoints = leaderboard.aggregate(my_max=Max('player_points'))
-    maxbadge = FantasyLeaderBoard.objects.using('fantasydb').get(
-                   player_points=maxpoints['my_max'])
-    
+    try:
+        maxbadge = FantasyLeaderBoard.objects.using(
+          'fantasydb').filter(year=str(year)).filter(
+          stop_number=str(stopnumber)).filter(sex='m').get(
+          player_points=maxpoints['my_max'])
+    except:
+        maxbadge = None
+
     # create surfer list (from the points table)
     points_surfers = FantasyPointsTable.objects.using(
-      'fantasydb').filter(event_id__lte=str(eventid)).filter(
-       sex='m').values_list('surfer_name', flat=True).distinct()
+      'fantasydb').filter(stop_number__lte=str(stopnumber)).filter(
+       sex='m').filter(year=str(year)).values_list('surfer_name', flat=True).distinct()
 
     # iterate over the points table 
     badgeholder = []
     for surfer in points_surfers:
         ptm = FantasyPointsTable.objects.using('fantasydb').filter(sex='m').filter(
-            surfer_name=surfer).filter(event_id__lte=str(eventid)).aggregate(
-            ptsum=Sum('total'))['ptsum']
+            surfer_name=surfer).filter(year=str(year)).filter(
+            stop_number__lte=str(stopnumber)).aggregate(ptsum=Sum('total'))['ptsum']
         pta = FantasyPointsTable.objects.using('fantasydb').filter(sex='m').filter(
-            surfer_name=surfer).filter(event_id__lte=str(eventid)).aggregate(
-            ptavg=Avg('total'))['ptavg']
+            surfer_name=surfer).filter(year=str(year)).filter(
+            stop_number__lte=str(stopnumber)).aggregate(ptavg=Avg('total'))['ptavg']
         bh = [surfer, ptm, pta]
         badgeholder.append(bh)
     
@@ -163,7 +177,7 @@ def menstour(request, eventid):
 
     # point spread
     spread = PointsSpread.objects.using('fantasydb').filter(sex='m').filter(
-        event_id=str(eventid))
+        stop_number=str(stopnumber)).filter(year=str(year))
     pointspread_tourpoints = spread.values('surfer_name', 'tourpoints').order_by(
         '-tourpoints','surfer_name')[0:8]
     pointspread_fantasypoints = spread.values('surfer_name', 'fantasypoints').order_by(
@@ -186,7 +200,8 @@ def menstour(request, eventid):
                'maxbadge':maxbadge,
                'tourbadges':tourbadges,
                'mps':mps,
-               'eventid':eventid,
+               'year':year,
+               'stopnumber':stopnumber,
                'pointspread_tourpoints':pointspread_tourpoints,
                'pointspread_fantasypoints':pointspread_fantasypoints,
                'pointspread_tourmaxheatscore':pointspread_tourmaxheatscore,
@@ -198,16 +213,20 @@ def menstour(request, eventid):
     return render(request, 'dashboard/mens.html', context)
 
 
-def womenstour(request, eventid):
+
+
+def womenstour(request, year, stopnumber):
     # Filter leaderboard 
     # The leaderboard is already structured in such a 
     # way that the table can be filtered on event id  
     leaderboard = FantasyLeaderBoard.objects.using(
-      'fantasydb').filter(event_id=str(eventid)).filter(sex='f')
+      'fantasydb').filter(year=str(year)).filter(
+      stop_number=str(stopnumber)).filter(sex='f')
 
     # filter picks table by event id 
     picks = FantasyPicks.objects.using(
-      'fantasydb').filter(event_id=str(eventid)).filter(sex='f')
+      'fantasydb').filter(year=str(year)).filter(
+      stop_number=str(stopnumber)).filter(sex='f')
 
    # collect list of distinct surfers (from the picks table)
     picks_surfers = picks.values_list('surfer_name',flat=True).distinct()
@@ -215,9 +234,10 @@ def womenstour(request, eventid):
     # filter points table by event id
     # Further processing is required because the points table needs to be 
     # ordered correctly and rearranged into wide format
-    points = FantasyPointsTable.objects.using('fantasydb').filter(sex='f').filter(
-      event_id=str(eventid)).filter(surfer_name__in=picks_surfers).order_by(
-      'surfer_name', 'round_id')
+    points = FantasyPointsTable.objects.using(
+      'fantasydb').filter(year=str(year)).filter(
+      stop_number=str(stopnumber)).filter(sex='f').filter(
+      surfer_name__in=picks_surfers).order_by('surfer_name', 'round_id')
 
     # Process points and picks to generate list of lists
     # list 1: surfer name
@@ -256,13 +276,14 @@ def womenstour(request, eventid):
     # Get event information for the summary section
     # Note that the picks table has been filtered on event id 
     # passed in using the url so calling distinct should return only
-    # one event name
+    # one event name (updated to filter on stop_number - but event_name
+    # should still be ok)
     eventname = picks.values_list('event_name',flat=True).distinct()
 
     # BADGES SECTION   
     # Count surfer picks (total across all events) - this is a badge 
-    allpicks = FantasyPicks.objects.using('fantasydb').filter(
-        event_id__lte=str(eventid)).filter(sex='f')
+    allpicks = FantasyPicks.objects.using('fantasydb').filter(year=str(year)).filter(
+        stop_number__lte=str(stopnumber)).filter(sex='f')
 
     # Collect surfer names to loop over next
     surferlist = allpicks.values_list('surfer_name',flat=True)
@@ -287,32 +308,43 @@ def womenstour(request, eventid):
     # sort
     mps = sorted(mostpickedsurfer, key=SortByMaxPoints, reverse=True)
 
+
     # Min event points filter
     # This works because the lowest event score is held in the leaderboard
     # NB event totals are not shown in the leaderboard on the dashboard
     minpoints = leaderboard.aggregate(my_min=Min('player_points'))
-    minbadge = FantasyLeaderBoard.objects.using('fantasydb').get(
-                   player_points=minpoints['my_min'])
-    
+    try:
+        minbadge = FantasyLeaderBoard.objects.using(
+          'fantasydb').filter(year=str(year)).filter(
+          stop_number=str(stopnumber)).filter(sex='f').get(
+          player_points=minpoints['my_min'])
+    except:
+        minbadge = None
+
     # highest points
     maxpoints = leaderboard.aggregate(my_max=Max('player_points'))
-    maxbadge = FantasyLeaderBoard.objects.using('fantasydb').get(
-                   player_points=maxpoints['my_max'])
-    
+    try:
+        maxbadge = FantasyLeaderBoard.objects.using(
+          'fantasydb').filter(year=str(year)).filter(
+          stop_number=str(stopnumber)).filter(sex='f').get(
+          player_points=maxpoints['my_max'])
+    except:
+        maxbadge = None
+
     # create surfer list (from the points table)
     points_surfers = FantasyPointsTable.objects.using(
-      'fantasydb').filter(event_id__lte=str(eventid)).filter(
-       sex='f').values_list('surfer_name', flat=True).distinct()
+      'fantasydb').filter(stop_number__lte=str(stopnumber)).filter(
+       sex='f').filter(year=str(year)).values_list('surfer_name', flat=True).distinct()
 
     # iterate over the points table 
     badgeholder = []
     for surfer in points_surfers:
         ptm = FantasyPointsTable.objects.using('fantasydb').filter(sex='f').filter(
-            surfer_name=surfer).filter(event_id__lte=str(eventid)).aggregate(
-            ptsum=Sum('total'))['ptsum']
+            surfer_name=surfer).filter(year=str(year)).filter(
+            stop_number__lte=str(stopnumber)).aggregate(ptsum=Sum('total'))['ptsum']
         pta = FantasyPointsTable.objects.using('fantasydb').filter(sex='f').filter(
-            surfer_name=surfer).filter(event_id__lte=str(eventid)).aggregate(
-            ptavg=Avg('total'))['ptavg']
+            surfer_name=surfer).filter(year=str(year)).filter(
+            stop_number__lte=str(stopnumber)).aggregate(ptavg=Avg('total'))['ptavg']
         bh = [surfer, ptm, pta]
         badgeholder.append(bh)
     
@@ -321,7 +353,7 @@ def womenstour(request, eventid):
     tourleader = sortedbadgeholder[0]
 
     # Tour lemon
-    tourlemon = [x for x in sortedbadgeholder if x[1] != 0.0][-1]    
+    tourlemon = [x for x in sortedbadgeholder if x[1] != 0.0][-1]        
 
     # Top avg heat scores
     def SortByAvgHeat(elem):
@@ -338,7 +370,7 @@ def womenstour(request, eventid):
 
     # point spread
     spread = PointsSpread.objects.using('fantasydb').filter(sex='f').filter(
-        event_id=str(eventid))
+        stop_number=str(stopnumber)).filter(year=str(year))
     pointspread_tourpoints = spread.values('surfer_name', 'tourpoints').order_by(
         '-tourpoints','surfer_name')[0:8]
     pointspread_fantasypoints = spread.values('surfer_name', 'fantasypoints').order_by(
@@ -361,14 +393,14 @@ def womenstour(request, eventid):
                'maxbadge':maxbadge,
                'tourbadges':tourbadges,
                'mps':mps,
-               'eventid':eventid,
+               'year':year,
+               'stopnumber':stopnumber,
                'pointspread_tourpoints':pointspread_tourpoints,
                'pointspread_fantasypoints':pointspread_fantasypoints,
                'pointspread_tourmaxheatscore':pointspread_tourmaxheatscore,
                'pointspread_lasteventfantasypoints':pointspread_lasteventfantasypoints,
                'pointspread_lasteventmaxheatscore':pointspread_lasteventmaxheatscore,
-               'pointspread_results':pointspread_results}
-
+               'pointspread_results':pointspread_results}    
 
     # render page
     return render(request, 'dashboard/womens.html', context)
