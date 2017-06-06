@@ -1,0 +1,69 @@
+/* All processes assume that the DB is created from scratch */
+
+/* Import csv files to SQLite3 */
+.mode csv
+
+/* Tables are dropped if they exist */
+DROP TABLE IF EXISTS Events_DIM;
+CREATE TABLE Events_DIM(event_id INTEGER PRIMARY KEY,
+                        event_name TEXT,
+                        event_location TEXT,
+                        event_country TEXT);
+.import ../../data/Events_DIM.csv Events_DIM
+
+/* Rounds Table*/
+DROP TABLE IF EXISTS Rounds_DIM;
+CREATE TABLE Rounds_DIM(round_id INTEGER PRIMARY KEY,
+                       round_name TEXT);
+.import ../../data/Rounds_DIM.csv Rounds_DIM
+
+
+/* Event dates */
+DROP TABLE IF EXISTS event_dates;
+CREATE TABLE event_dates(dates_id INTEGER PRIMARY KEY,
+                    stop_number INTEGER, 
+                    year INTEGER, 
+                    sex TEXT,
+                    opendate TEXT,
+                    closedate TEXT,
+                    startdate TEXT,
+                    enddate TXT);
+.import ../../data/event_dates_FACT.csv event_dates
+
+
+/* Events table */
+DROP TABLE IF EXISTS events;
+CREATE TABLE events(id INTEGER PRIMARY KEY,
+                    year INTEGER, 
+                    stop_number INTEGER, 
+                    event_id INTEGER,
+                    round_id INTEGER,
+                    heat INTEGER,
+                    sex TEXT,
+                    surfer_name TEXT,
+                    score1 REAL,
+                    score2 REAL,
+		    total REAL,
+                    flag TEXT,
+                    note TEXT);
+.import ../../data/historical_events_FACT.csv events
+
+
+/* Rank heat results */
+SELECT t1.*, t3.startdate, (
+     SELECT COUNT(*)+1
+     FROM events AS t2
+     WHERE t2.total > t1.total 
+     AND t2.stop_number = t1.stop_number
+     AND t2.year = t1.year
+     AND t2.sex = t1.sex
+     AND t2.round_id = t1.round_id
+     AND t2.heat = t1.heat
+     ) as accumulated
+FROM events t1
+JOIN event_dates AS t3 
+ON t3.year = t1.year
+AND t3.stop_number = t1.stop_number;
+
+
+
