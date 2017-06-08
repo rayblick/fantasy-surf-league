@@ -50,20 +50,127 @@ CREATE TABLE events(id INTEGER PRIMARY KEY,
 
 
 /* Rank heat results */
-SELECT t1.*, t3.startdate, (
-     SELECT COUNT(*)+1
-     FROM events AS t2
-     WHERE t2.total > t1.total 
-     AND t2.stop_number = t1.stop_number
-     AND t2.year = t1.year
-     AND t2.sex = t1.sex
-     AND t2.round_id = t1.round_id
-     AND t2.heat = t1.heat
-     ) as accumulated
+DROP VIEW IF EXISTS predictions;
+CREATE VIEW predictions AS
+SELECT t1.*, t3.startdate, 
+     (SELECT COUNT(*)+1
+      FROM events AS t2
+      WHERE t2.total > t1.total 
+      AND t2.stop_number = t1.stop_number
+      AND t2.year = t1.year
+      AND t2.sex = t1.sex
+      AND t2.round_id = t1.round_id
+      AND t2.heat = t1.heat
+     ) as rank
 FROM events t1
 JOIN event_dates AS t3 
 ON t3.year = t1.year
 AND t3.stop_number = t1.stop_number;
 
 
+/* Create intermediate stage table */
+DROP TABLE IF EXISTS predictions_stage1;
+CREATE TABLE predictions_stage1(
+                    id INTEGER PRIMARY KEY,
+                    year INTEGER, 
+                    stop_number INTEGER, 
+                    event_id INTEGER,
+                    round_id INTEGER,
+                    heat INTEGER,
+                    sex TEXT,
+                    surfer_name TEXT,
+                    score1 REAL,
+                    score2 REAL,
+		    total REAL,
+                    flag TEXT,
+                    note TEXT,
+                    startdate TEXT,
+                    rank INTEGER,
+                    heatavg REAL,
+                    heatmax REAL,
+                    total_heat_wins REAL,
+                    total_heat_count REAL,
+                    specific_round_wins REAL,
+                    specific_round_count REAL,
+                    total_event_wins INTEGER);
 
+/* Insert calculated fields */
+INSERT INTO predictions_stage1(
+                    id, year, stop_number,
+                    event_id, round_id,
+                    heat, sex, surfer_name,
+                    score1, score2, total,
+                    flag, note, startdate,
+                    rank, heatavg, heatmax,
+                    total_heat_wins,
+                    total_heat_count,
+                    specific_round_wins,
+                    specific_round_count,
+                    total_event_wins)  
+SELECT t1.*, 
+     ( SELECT ROUND(AVG(total),2)
+       FROM predictions AS t2
+       WHERE t2.startdate < t1.startdate 
+       AND t2.surfer_name = t1.surfer_name
+     ) as heatavg,
+
+     ( SELECT MAX(total)
+       FROM predictions AS t2
+       WHERE t2.startdate < t1.startdate 
+       AND t2.surfer_name = t1.surfer_name
+     ) as heatmax,
+
+     ( SELECT COUNT(rank)
+       FROM predictions AS t2
+       WHERE t2.startdate < t1.startdate 
+       AND t2.surfer_name = t1.surfer_name
+       AND t2.rank = 1
+     ) as total_heat_wins,
+
+     ( SELECT COUNT(*)
+       FROM predictions AS t2
+       WHERE t2.startdate < t1.startdate 
+       AND t2.surfer_name = t1.surfer_name
+     ) as total_heat_count,
+
+     ( SELECT COUNT(rank)
+       FROM predictions AS t2
+       WHERE t2.startdate < t1.startdate 
+       AND t2.surfer_name = t1.surfer_name
+       AND t2.rank = 1
+       AND t2.round_id = t1.round_id
+     ) as specific_round_wins,
+     
+     ( SELECT COUNT(*)
+       FROM predictions AS t2
+       WHERE t2.startdate < t1.startdate 
+       AND t2.surfer_name = t1.surfer_name
+       AND t2.round_id = t1.round_id
+     ) as specific_round_count,
+
+     ( SELECT COUNT(rank)
+       FROM predictions AS t2
+       WHERE t2.startdate < t1.startdate 
+       AND t2.surfer_name = t1.surfer_name
+       AND t2.rank = 1
+       AND t2.round_id = 8
+     ) as total_event_wins
+
+FROM predictions t1
+ORDER BY startdate, round_id;
+
+
+/* test */
+SELECT year,
+       event_id, 
+       round_id, 
+       rank, 
+       AVG(ROUND(total_heat_wins/
+       total_heat_count, 2)), 
+       AVG(ROUND(specific_round_wins/
+       specific_round_count, 2)) 
+FROM predictions_stage1 
+WHERE event_id = 10
+AND round_id = 1
+GROUP BY year, event_id, round_id, rank
+ORDER BY rank desc;
